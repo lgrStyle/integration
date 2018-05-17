@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
     <property name="PATTERN" value="%-12(%d{yyyy-MM-dd HH:mm:ss.SSS}) %-5level [%thread] %c [%L] - %m%n"/>
-    <property name="TEST_FILE_PATH" value="D:/logs/test/test.log"/>
-    <property name="PROD_FILE_PATH" value="/logs/prod/prod.log"/>
+    <property name="TEST_FILE_PATH" value="D:/logs/test"/>
+    <property name="PROD_FILE_PATH" value="/logs/prod"/>
     
     <springProfile name="dev">
         <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
@@ -18,9 +18,9 @@
     
     <springProfile name="test">
         <appender name="TEST_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-            <file>${TEST_FILE_PATH}</file>
+            <file>${TEST_FILE_PATH}/test.log</file>
             <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-                <fileNamePattern>${TEST_FILE_PATH}/info.%d{yyyy-MM-dd}.log</fileNamePattern>
+                <fileNamePattern>${TEST_FILE_PATH}/info-%d{yyyy-MM-dd}.log</fileNamePattern>
                 <MaxHistory>100</MaxHistory>
             </rollingPolicy>
             <layout class="ch.qos.logback.classic.PatternLayout">
@@ -34,9 +34,9 @@
     
     <springProfile name="prod">
         <appender name="PROD_FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-            <file>${PROD_FILE_PATH}</file>
+            <file>${PROD_FILE_PATH}/prod.log</file>
             <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-                <fileNamePattern>${PROD_FILE_PATH}/info.%d{yyyy-MM-dd}.log</fileNamePattern>
+                <fileNamePattern>${PROD_FILE_PATH}/info-%d{yyyy-MM-dd}.log</fileNamePattern>
             </rollingPolicy>
             <layout>
                 <pattern>${PATTERN}</pattern>
