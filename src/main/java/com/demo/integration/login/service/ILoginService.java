@@ -1,5 +1,5 @@
 package com.demo.integration.login.service;
 
-public interface ITestService {
+public interface ILoginService {
 
 }

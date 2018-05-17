@@ -7,7 +7,7 @@ import com.demo.integration.comom.exception.CustomException;
 
 
 @RestController
-public class TestController {
+public class LoginController {
 
     @RequestMapping("/hello")
     public String hello() {
