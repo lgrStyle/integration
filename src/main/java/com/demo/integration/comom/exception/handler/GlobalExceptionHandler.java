@@ -1,4 +1,4 @@
-package com.demo.integration.exception.handler;
+package com.demo.integration.comom.exception.handler;
 
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.web.bind.annotation.ExceptionHandler;
