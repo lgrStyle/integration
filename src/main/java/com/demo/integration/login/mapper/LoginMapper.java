@@ -3,6 +3,7 @@ package com.demo.integration.login.mapper;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.demo.integration.login.entity.Department;
+import com.demo.integration.login.entity.User;
 
 
 @Mapper
@@ -15,4 +16,6 @@ public interface LoginMapper {
     public void update(Department department);
     
     public void deleteById(Integer id);
+    
+    public User getUserInfo(String username);
 }

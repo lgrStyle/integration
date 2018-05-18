@@ -49,6 +49,6 @@ public class LoginService implements ILoginService{
     @Override
     public User getUserInfo(String username) {
         
-        return null;
+        return loginMapper.getUserInfo(username);
     } 
 }
