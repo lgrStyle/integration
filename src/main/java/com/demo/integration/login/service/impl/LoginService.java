@@ -8,6 +8,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.demo.integration.login.entity.Department;
+import com.demo.integration.login.entity.User;
 import com.demo.integration.login.mapper.LoginMapper;
 import com.demo.integration.login.service.ILoginService;
 
@@ -43,5 +44,11 @@ public class LoginService implements ILoginService{
     public void delete(Integer id) {
         System.out.println("删除 id=" + id + " 的数据");
         loginMapper.deleteById(id);
+    }
+
+    @Override
+    public User getUserInfo(String username) {
+        
+        return null;
     } 
 }

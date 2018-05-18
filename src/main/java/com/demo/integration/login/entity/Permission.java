@@ -2,6 +2,9 @@ package com.demo.integration.login.entity;
 
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Permission {
     private Integer id;
     private String name;
