@@ -4,9 +4,9 @@ import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
-import org.apache.shiro.authc.credential.PasswordService;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
+import org.apache.shiro.crypto.hash.Md5Hash;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
@@ -27,16 +27,6 @@ public class LoginRealm extends AuthorizingRealm{
     @Autowired
     private ILoginService loginService;
     
-    private PasswordService passwordService;
-    
-    public PasswordService getPasswordService() {
-        return passwordService;
-    }
-
-    public void setPasswordService(PasswordService passwordService) {
-        this.passwordService = passwordService;
-    }
-
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         logger.info("-----授权验证-----");
@@ -66,7 +56,7 @@ public class LoginRealm extends AuthorizingRealm{
                 getName()
         );
         logger.info("-----密码："+user.getPassword()+"-----");
-        logger.info("-----密码："+passwordService.encryptPassword(user.getPassword())+"-----");
+        logger.info("-----密码："+new Md5Hash("123","java")+"-----");
         return authenticationInfo;
     }
 

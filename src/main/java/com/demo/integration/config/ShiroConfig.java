@@ -3,7 +3,6 @@ package com.demo.integration.config;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import org.apache.shiro.authc.credential.DefaultPasswordService;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
@@ -49,7 +48,6 @@ public class ShiroConfig {
     public LoginRealm loginRealm() {
         LoginRealm realm = new LoginRealm();
         realm.setCredentialsMatcher(hashedCredentialsMatcher());
-        realm.setPasswordService(defaultPasswordService());
         return realm;
     }
     
@@ -60,10 +58,4 @@ public class ShiroConfig {
         hashedCredentialsMatcher.setHashIterations(1);
         return hashedCredentialsMatcher;
     } 
-    
-    @Bean
-    public DefaultPasswordService defaultPasswordService() {
-        DefaultPasswordService defaultPasswordService = new DefaultPasswordService();
-        return defaultPasswordService;
-    }
 }
