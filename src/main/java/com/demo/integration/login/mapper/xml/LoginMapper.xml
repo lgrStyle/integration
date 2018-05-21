@@ -73,13 +73,13 @@
             ,P.AVAILABLE AS ROLE_PER_AVAILABLE
         FROM USER_INFO U
         LEFT JOIN SYS_USER_ROLE SUR
-        ON U.ID = SUR.USER_ID
+            ON U.ID = SUR.USER_ID
         LEFT JOIN SYS_ROLE R
-        ON SUR.ROLE_ID = R.ID
+            ON SUR.ROLE_ID = R.ID
         LEFT JOIN SYS_ROLE_PERMISSION SRP
-        ON R.ID = SRP.ROLE_ID
+            ON R.ID = SRP.ROLE_ID
         LEFT JOIN SYS_PERMISSION P
-        ON SRP.PERMISSION_ID = P.ID
+            ON SRP.PERMISSION_ID = P.ID
         WHERE U.USERNAME = #{username}
     </select>
     

@@ -4,9 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -50,6 +52,42 @@ public class LoginController {
     @RequestMapping("/403")
     public String unauthorizedRole(){
         return "403";
+    }
+    
+    @RequestMapping("/logout")
+    public String logout(HttpSession session){
+        session.invalidate();
+        return "login";
+    }
+    
+    /**
+     * 用户查询.
+     * @return
+     */
+    @RequestMapping("/userInfo")
+    @RequiresPermissions("userInfo:view")//权限管理;
+    public String userInfo(){
+        return "userInfo";
+    }
+
+    /**
+     * 用户添加;
+     * @return
+     */
+    @RequestMapping("/userAdd")
+    @RequiresPermissions("userInfo:add")//权限管理;
+    public String userInfoAdd(){
+        return "userAdd";
+    }
+
+    /**
+     * 用户删除;
+     * @return
+     */
+    @RequestMapping("/userDel")
+    @RequiresPermissions("userInfo:del")//权限管理;
+    public String userDel(){
+        return "userDel";
     }
     
     @RequestMapping("save")
