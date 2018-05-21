@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,8 @@ public class LoginController {
                 msg = "用户名不存在！";
             }else if(IncorrectCredentialsException.class.getName().equals(exception)) {
                 msg = "密码不正确！";
+            }else if(LockedAccountException.class.getName().equals(exception)) {
+                msg = "账户已被锁定！";
             }else if("kaptchaValidateFailed".equals(exception)) {
                 msg = "验证码不正确！";
             }else {

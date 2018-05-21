@@ -3,6 +3,8 @@ package com.demo.integration.config;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.apache.shiro.authc.credential.DefaultPasswordService;
+import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
@@ -16,7 +18,7 @@ import com.demo.integration.login.realm.LoginRealm;
 @Configuration
 public class ShiroConfig {
     
-    private static Logger logger = LoggerFactory.getLogger(ShiroConfig.class);
+    private static final Logger logger = LoggerFactory.getLogger(ShiroConfig.class);
     
     @Bean
     public ShiroFilterFactoryBean shiroFilter(SecurityManager sm) {
@@ -46,6 +48,22 @@ public class ShiroConfig {
     @Bean
     public LoginRealm loginRealm() {
         LoginRealm realm = new LoginRealm();
+        realm.setCredentialsMatcher(hashedCredentialsMatcher());
+        realm.setPasswordService(defaultPasswordService());
         return realm;
+    }
+    
+    @Bean
+    public HashedCredentialsMatcher hashedCredentialsMatcher() {
+        HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
+        hashedCredentialsMatcher.setHashAlgorithmName("MD5");
+        hashedCredentialsMatcher.setHashIterations(1);
+        return hashedCredentialsMatcher;
+    } 
+    
+    @Bean
+    public DefaultPasswordService defaultPasswordService() {
+        DefaultPasswordService defaultPasswordService = new DefaultPasswordService();
+        return defaultPasswordService;
     }
 }

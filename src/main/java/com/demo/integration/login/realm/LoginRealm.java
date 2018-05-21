@@ -4,6 +4,7 @@ import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
+import org.apache.shiro.authc.credential.PasswordService;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
@@ -21,11 +22,21 @@ import com.demo.integration.login.service.ILoginService;
 
 public class LoginRealm extends AuthorizingRealm{
 
-    private static Logger logger = LoggerFactory.getLogger(LoginRealm.class);
+    private final static Logger logger = LoggerFactory.getLogger(LoginRealm.class);
     
     @Autowired
     private ILoginService loginService;
     
+    private PasswordService passwordService;
+    
+    public PasswordService getPasswordService() {
+        return passwordService;
+    }
+
+    public void setPasswordService(PasswordService passwordService) {
+        this.passwordService = passwordService;
+    }
+
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
         logger.info("-----授权验证-----");
@@ -54,6 +65,8 @@ public class LoginRealm extends AuthorizingRealm{
                 ByteSource.Util.bytes(user.getSalt()),
                 getName()
         );
+        logger.info("-----密码："+user.getPassword()+"-----");
+        logger.info("-----密码："+passwordService.encryptPassword(user.getPassword())+"-----");
         return authenticationInfo;
     }
 
