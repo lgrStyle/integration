@@ -1,9 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.demo.integration.login.mapper.LoginMapper">
+    <resultMap type="com.demo.integration.login.entity.User" id="userMap">
+        <id column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="name" property="name"/>
+        <result column="password" property="password"/>
+        <result column="salt" property="salt"/>
+        <result column="state" property="state"/>
+        <collection property="roles" ofType="com.demo.integration.login.entity.Role" columnPrefix="role_" resultMap="roleMap"/>
+    </resultMap>
+    
+    <resultMap type="com.demo.integration.login.entity.Role" id="roleMap" >
+        <id column="id" property="id"/>
+        <result column="role" property="role"/>
+        <result column="description" property="description"/>
+        <result column="available" property="available"/>
+        <collection property="users" ofType="com.demo.integration.login.entity.User" columnPrefix="user_">
+            <id column="id" property="id"/>
+        </collection>
+        <collection property="permissions" ofType="com.demo.integration.login.entity.Permission" columnPrefix="per_" resultMap="permissionMap"/>
+    </resultMap>
 
-    <resultMap type="" id="userMap">
-        
+    <resultMap type="com.demo.integration.login.entity.Permission" id="permissionMap">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="url" property="url"/>
+        <result column="permission" property="permission"/>
+        <result column="available" property="available"/>
+        <result column="RESOURCE_TYPE" property="resourceType"/>
+        <result column="PARENT_ID" property="parentId"/>
+        <result column="PARENT_IDS" property="parentIds"/>
+        <collection property="roles" ofType="com.demo.integration.login.entity.Role" columnPrefix="role_">
+            <id column="id" property="id"/>
+        </collection>
     </resultMap>
 
     <insert id="insert">
@@ -14,7 +44,7 @@
         UPDATE department SET descr = #{descr} WHERE ID = #{id}
     </update>
     
-    <select id="getById" resultType="com.demo.integration.login.entity.Department">
+    <select id="getById" resultType="com.demo.integration.login.entity.Department" >
         SELECT ID,NAME,DESCR FROM department WHERE ID = #{id}
     </select>
     
@@ -23,7 +53,34 @@
     </delete> 
     
     <select id="getUserInfo" resultMap="userMap">
-        
+        SELECT U.ID
+            ,U.USERNAME
+            ,U.NAME
+            ,U.PASSWORD
+            ,U.SALT
+            ,U.STATE
+            ,R.ID AS ROLE_ID
+            ,R.ROLE AS ROLE_ROLE
+            ,R.DESCRIPTION AS ROLE_DESCRIPTION
+            ,R.AVAILABLE AS ROLE_AVAILABLE
+            ,P.ID AS ROLE_PER_ID
+            ,P.NAME AS ROLE_PER_NAME
+            ,P.RESOURCE_TYPE AS ROLE_PER_RESOURCE_TYPE
+            ,P.URL AS ROLE_PER_URL
+            ,P.PERMISSION AS ROLE_PER_PERMISSION
+            ,P.PARENT_ID AS ROLE_PER_PARENT_ID
+            ,P.PARENT_IDS AS ROLE_PER_PARENT_IDS
+            ,P.AVAILABLE AS ROLE_PER_AVAILABLE
+        FROM USER_INFO U
+        LEFT JOIN SYS_USER_ROLE SUR
+        ON U.ID = SUR.USER_ID
+        LEFT JOIN SYS_ROLE R
+        ON SUR.ROLE_ID = R.ID
+        LEFT JOIN SYS_ROLE_PERMISSION SRP
+        ON R.ID = SRP.ROLE_ID
+        LEFT JOIN SYS_PERMISSION P
+        ON SRP.PERMISSION_ID = P.ID
+        WHERE U.USERNAME = #{username}
     </select>
     
 </mapper>

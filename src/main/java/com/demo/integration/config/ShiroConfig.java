@@ -45,6 +45,7 @@ public class ShiroConfig {
     
     @Bean
     public LoginRealm loginRealm() {
-        return new LoginRealm();
+        LoginRealm realm = new LoginRealm();
+        return realm;
     }
 }

@@ -10,7 +10,7 @@ public class Role {
     private Integer id;
     private String role;
     private String description;
-    private Boolean avalible = Boolean.FALSE;
+    private Boolean available = Boolean.TRUE;
     private List<Permission> permissions;
     private List<User> users;
     
@@ -32,11 +32,11 @@ public class Role {
     public void setDescription(String description) {
         this.description = description;
     }
-    public Boolean getAvalible() {
-        return avalible;
+    public Boolean getAvailable() {
+        return available;
     }
-    public void setAvalible(Boolean avalible) {
-        this.avalible = avalible;
+    public void setAvailable(Boolean available) {
+        this.available = available;
     }
     public List<Permission> getPermissions() {
         return permissions;

@@ -11,9 +11,9 @@ public class Permission {
     private String resourceType;
     private String url;
     private String permission;
-    private Long parrentId;
-    private String parrentIds;
-    private Boolean avalible = Boolean.FALSE;
+    private Integer parentId;
+    private String parentIds;
+    private Boolean available = Boolean.TRUE;
     private List<Role> roles;
     
     public Integer getId() {
@@ -46,23 +46,23 @@ public class Permission {
     public void setPermission(String permission) {
         this.permission = permission;
     }
-    public Long getParrentId() {
-        return parrentId;
+    public Integer getParentId() {
+        return parentId;
     }
-    public void setParrentId(Long parrentId) {
-        this.parrentId = parrentId;
+    public void setParentId(Integer parentId) {
+        this.parentId = parentId;
     }
-    public String getParrentIds() {
-        return parrentIds;
+    public String getParentIds() {
+        return parentIds;
     }
-    public void setParrentIds(String parrentIds) {
-        this.parrentIds = parrentIds;
+    public void setParentIds(String parentIds) {
+        this.parentIds = parentIds;
     }
-    public Boolean getAvalible() {
-        return avalible;
+    public Boolean getAvailable() {
+        return available;
     }
-    public void setAvalible(Boolean avalible) {
-        this.avalible = avalible;
+    public void setAvailable(Boolean available) {
+        this.available = available;
     }
     public List<Role> getRoles() {
         return roles;

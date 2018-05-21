@@ -12,7 +12,7 @@ public class User {
     private String name;
     private String password;
     private String salt;
-    private byte state;
+    private short state;
     private List<Role> roles;
     
     public Integer getId() {
@@ -45,10 +45,10 @@ public class User {
     public void setSalt(String salt) {
         this.salt = salt;
     }
-    public byte getState() {
+    public short getState() {
         return state;
     }
-    public void setState(byte state) {
+    public void setState(short state) {
         this.state = state;
     }
     public List<Role> getRoles() {

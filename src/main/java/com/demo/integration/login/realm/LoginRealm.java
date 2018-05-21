@@ -11,6 +11,7 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.demo.integration.login.entity.Permission;
 import com.demo.integration.login.entity.Role;
@@ -22,6 +23,7 @@ public class LoginRealm extends AuthorizingRealm{
 
     private static Logger logger = LoggerFactory.getLogger(LoginRealm.class);
     
+    @Autowired
     private ILoginService loginService;
     
     @Override
