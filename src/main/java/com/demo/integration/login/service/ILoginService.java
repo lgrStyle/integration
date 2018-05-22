@@ -14,4 +14,6 @@ public interface ILoginService {
     public void delete(Integer id);
     
     public User getUserInfo(String username);
+    
+    public void addUser(User user);
 }

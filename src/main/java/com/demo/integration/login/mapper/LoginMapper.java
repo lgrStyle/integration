@@ -18,4 +18,6 @@ public interface LoginMapper {
     public void deleteById(Integer id);
     
     public User getUserInfo(String username);
+    
+    public void addUser(User user);
 }

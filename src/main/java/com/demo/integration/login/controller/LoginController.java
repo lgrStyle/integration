@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.demo.integration.login.entity.Department;
+import com.demo.integration.login.entity.User;
 import com.demo.integration.login.service.ILoginService;
 
 
@@ -79,7 +80,11 @@ public class LoginController {
      */
     @RequestMapping("/userAdd")
     @RequiresPermissions("userInfo:add")//权限管理;
-    public String userInfoAdd(){
+    public String userInfoAdd(User user){
+        if(user.getUsername() != null) {
+            loginService.addUser(user);
+            return "userInfo";
+        }
         return "userAdd";
     }
 

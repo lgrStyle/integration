@@ -83,4 +83,9 @@
         WHERE U.USERNAME = #{username}
     </select>
     
+    <insert id="addUser">
+        INSERT INTO USER_INFO(username,name,password,salt,state)
+        VALUES(#{username},#{name},#{password},#{salt},#{state})
+    </insert>
+    
 </mapper>

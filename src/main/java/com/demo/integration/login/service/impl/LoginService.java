@@ -1,5 +1,7 @@
 package com.demo.integration.login.service.impl;
 
+import org.apache.shiro.crypto.SecureRandomNumberGenerator;
+import org.apache.shiro.crypto.hash.SimpleHash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
@@ -18,6 +20,9 @@ public class LoginService implements ILoginService{
     
     @Autowired
     private LoginMapper loginMapper;
+    
+    @Autowired
+    private SecureRandomNumberGenerator secureRandomNumberGenerator;
     
     @CachePut(key="#department.id")
     public Department save(Department department){
@@ -50,5 +55,17 @@ public class LoginService implements ILoginService{
     public User getUserInfo(String username) {
         
         return loginMapper.getUserInfo(username);
+    }
+
+    @Override
+    public void addUser(User user) {
+        String algorithmName = "MD5";
+        String number = secureRandomNumberGenerator.nextBytes().toHex();
+        String salt = user.getUsername()+number;
+        int hashIterations = 1; 
+        SimpleHash simpleHash = new SimpleHash(algorithmName, user.getPassword(), salt, hashIterations);
+        user.setPassword(simpleHash.toHex());
+        user.setSalt(salt);
+        loginMapper.addUser(user);
     } 
 }
