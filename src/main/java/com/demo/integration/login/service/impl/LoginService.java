@@ -15,7 +15,7 @@ import com.demo.integration.login.mapper.LoginMapper;
 import com.demo.integration.login.service.ILoginService;
 
 @Service
-@CacheConfig(cacheNames="loginService")
+@CacheConfig(cacheNames="com.demo.integration.login.service.impl.loginService")
 public class LoginService implements ILoginService{
     
     @Autowired
