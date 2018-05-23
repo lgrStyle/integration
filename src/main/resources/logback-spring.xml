@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <property name="PATTERN" value="%-12(%d{yyyy-MM-dd HH:mm:ss.SSS}) %-5level [%thread] %c [%L] - %m%n"/>
+    <property name="PATTERN" value="%-12(%d{yyyy-MM-dd HH:mm:ss.SSS})  %-5level  [%thread]  %c  -  %m%n"/>
     <property name="TEST_FILE_PATH" value="D:/logs/test"/>
     <property name="PROD_FILE_PATH" value="/logs/prod"/>
     
@@ -11,7 +11,7 @@
             </encoder>
         </appender>
         <logger name="com.demo.integration" level="debug"/>
-        <root level="info">
+        <root level="debug">
             <appender-ref ref="CONSOLE"/>
         </root>
     </springProfile>

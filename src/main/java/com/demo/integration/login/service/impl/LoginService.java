@@ -8,6 +8,7 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.demo.integration.login.entity.Department;
 import com.demo.integration.login.entity.User;
@@ -16,6 +17,7 @@ import com.demo.integration.login.service.ILoginService;
 
 @Service
 @CacheConfig(cacheNames="com.demo.integration.login.service.impl.loginService")
+@Transactional
 public class LoginService implements ILoginService{
     
     @Autowired
