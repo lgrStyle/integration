@@ -22,10 +22,6 @@
             -webkit-transform: translateY(-50%);
             transform:translateY(-50%);
         }
-        
-        h3{
-            text-align:center;
-        }
     </style>
 </head>
 <body>
@@ -48,7 +44,12 @@
 	            <div class="form-group">
 	               <input class="btn btn-primary form-control" type="submit" value="登录">
 	            </div>
-	            <h5 th:text="${msg}"></h5>
+	            <div class="alert alert-danger alert-dismissible" role="alert" th:if="${not #lists.isEmpty(msg)}">
+	               <button class="close" type="button" data-dismiss="alert" >
+	                   <span>&times;</span>
+	               </button>
+	               <span th:text="${msg}"></span>
+	            </div>
 	        </form>
         </div>
     </div>
