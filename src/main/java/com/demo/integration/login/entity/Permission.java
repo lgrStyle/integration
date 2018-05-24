@@ -1,11 +1,14 @@
 package com.demo.integration.login.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
 
 @Component
-public class Permission {
+public class Permission implements Serializable{
+    private static final long serialVersionUID = 1L;
+    
     private Integer id;
     private String name;
     private String resourceType;
