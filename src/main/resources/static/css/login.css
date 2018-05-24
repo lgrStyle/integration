@@ -1,0 +1,21 @@
+.login-center{
+    position:absolute;
+    margin: auto;
+    left:0px;
+    right:0px;
+    top:50%;
+    width:350px;
+    padding: 40px 30px;
+    background: rgba(238, 238, 238, 0.5);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    transform:translateY(-50%);
+}
+body{
+    background-image: url(../image/a.jpg);
+    background-size:cover;
+}
+h3{
+    text-align:center;
+}
