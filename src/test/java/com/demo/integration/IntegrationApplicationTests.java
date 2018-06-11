@@ -1,6 +1,7 @@
 package com.demo.integration;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -8,7 +9,11 @@ import java.util.List;
 import java.util.zip.ZipInputStream;
 
 import org.activiti.engine.RepositoryService;
+import org.activiti.engine.RuntimeService;
+import org.activiti.engine.TaskService;
 import org.activiti.engine.repository.Deployment;
+import org.activiti.engine.runtime.ProcessInstance;
+import org.activiti.engine.task.Task;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,14 +29,12 @@ public class IntegrationApplicationTests {
     @Autowired
     private RepositoryService repositoryService;
     
-	@Test
-	public void contextLoads() throws FileNotFoundException {
-	    long count = repositoryService.createDeploymentQuery()
-	        .processDefinitionKey("testProcess")
-	        .count();
-	    assertEquals(count, 1);
-	}
-	
+    @Autowired
+    private RuntimeService runtimeService;
+    
+    @Autowired
+    private TaskService taskService;
+    
 	public void addResource() {
 	    InputStream bpmn = IntegrationApplicationTests.class.getClassLoader().getResourceAsStream("processes/testProcess.bpmn");
         InputStream png = IntegrationApplicationTests.class.getClassLoader().getResourceAsStream("processes/testProcess.png");
@@ -61,5 +64,28 @@ public class IntegrationApplicationTests {
 	    for(Deployment deployment : list) {
 	        repositoryService.deleteDeployment(deployment.getId(), true);
 	    }
+	}
+	
+	@Test
+    public void contextLoads() throws FileNotFoundException {
+        long count = repositoryService.createDeploymentQuery()
+            .processDefinitionKey("testProcess")
+            .count();
+        assertEquals(count, 1);
+    }
+	
+	@Test
+	public void startProcess() {
+	    ProcessInstance pi = runtimeService.startProcessInstanceByKey("testProcess");
+	    assertNotNull(pi);
+	}
+	
+	@Test
+	public void completeTask() {
+	    List<Task> list = taskService.createTaskQuery().processDefinitionKey("testProcess").list();
+	    for(Task task : list) {
+	        taskService.complete(task.getId());
+	    }
+	    assertNotNull(list);
 	}
 }
