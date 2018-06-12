@@ -16,7 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.demo.integration.login.entity.Permission;
 import com.demo.integration.login.entity.Role;
 import com.demo.integration.login.entity.User;
-import com.demo.integration.login.service.ILoginService;
+import com.demo.integration.login.service.LoginService;
 
 
 public class LoginRealm extends AuthorizingRealm{
@@ -24,7 +24,7 @@ public class LoginRealm extends AuthorizingRealm{
     private final static Logger logger = LoggerFactory.getLogger(LoginRealm.class);
     
     @Autowired
-    private ILoginService loginService;
+    private LoginService loginService;
     
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {

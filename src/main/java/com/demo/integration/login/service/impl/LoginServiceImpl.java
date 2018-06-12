@@ -13,12 +13,12 @@ import org.springframework.transaction.annotation.Transactional;
 import com.demo.integration.login.entity.Department;
 import com.demo.integration.login.entity.User;
 import com.demo.integration.login.mapper.LoginMapper;
-import com.demo.integration.login.service.ILoginService;
+import com.demo.integration.login.service.LoginService;
 
 @Service
 @CacheConfig(cacheNames="com.demo.integration.login.service.impl.loginService")
 @Transactional
-public class LoginService implements ILoginService{
+public class LoginServiceImpl implements LoginService{
     
     @Autowired
     private LoginMapper loginMapper;

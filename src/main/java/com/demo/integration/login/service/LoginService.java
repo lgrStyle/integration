@@ -3,7 +3,7 @@ package com.demo.integration.login.service;
 import com.demo.integration.login.entity.Department;
 import com.demo.integration.login.entity.User;
 
-public interface ILoginService {
+public interface LoginService {
 
     public Department save(Department department);
     

@@ -18,14 +18,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.demo.integration.login.entity.Department;
 import com.demo.integration.login.entity.User;
-import com.demo.integration.login.service.ILoginService;
+import com.demo.integration.login.service.LoginService;
 
 
 @Controller
 public class LoginController {
     
     @Autowired
-    private ILoginService loginService;
+    private LoginService loginService;
     
     @RequestMapping("/login")
     public String login(HttpServletRequest request,Map<String,Object> map) {

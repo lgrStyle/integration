@@ -56,15 +56,15 @@ public class IntegrationApplicationTests {
 	        .deploy();
 	}
 	
-	@After
-	public void deleteResource() {
-	    List<Deployment> list = repositoryService.createDeploymentQuery()
-	            .processDefinitionKey("testProcess")
-	            .list();
-	    for(Deployment deployment : list) {
-	        repositoryService.deleteDeployment(deployment.getId(), true);
-	    }
-	}
+//	@After
+//	public void deleteResource() {
+//	    List<Deployment> list = repositoryService.createDeploymentQuery()
+//	            .processDefinitionKey("testProcess")
+//	            .list();
+//	    for(Deployment deployment : list) {
+//	        repositoryService.deleteDeployment(deployment.getId(), true);
+//	    }
+//	}
 	
 	@Test
     public void contextLoads() throws FileNotFoundException {
@@ -74,18 +74,18 @@ public class IntegrationApplicationTests {
         assertEquals(count, 1);
     }
 	
-	@Test
-	public void startProcess() {
-	    ProcessInstance pi = runtimeService.startProcessInstanceByKey("testProcess");
-	    assertNotNull(pi);
-	}
-	
-	@Test
-	public void completeTask() {
-	    List<Task> list = taskService.createTaskQuery().processDefinitionKey("testProcess").list();
-	    for(Task task : list) {
-	        taskService.complete(task.getId());
-	    }
-	    assertNotNull(list);
-	}
+//	@Test
+//	public void startProcess() {
+//	    ProcessInstance pi = runtimeService.startProcessInstanceByKey("testProcess");
+//	    assertNotNull(pi);
+//	}
+//	
+//	@Test
+//	public void completeTask() {
+//	    List<Task> list = taskService.createTaskQuery().processDefinitionKey("testProcess").list();
+//	    for(Task task : list) {
+//	        taskService.complete(task.getId());
+//	    }
+//	    assertNotNull(list);
+//	}
 }
