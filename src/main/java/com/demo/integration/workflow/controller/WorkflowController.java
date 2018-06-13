@@ -143,6 +143,7 @@ public class WorkflowController {
                     }
                 }
                 
+                // 遍历匹配的集合，取得开始时间最早的一个
                 long earliestStamp = 0L;
                 String flowId = null;
                 for(Map<String,String> map : tempMapList) {
