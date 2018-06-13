@@ -75,7 +75,7 @@ public class WorkflowController {
         
         ProcessDiagramGenerator processDiagramGenerator = processEngineConfiguration.getProcessDiagramGenerator();
         
-        InputStream inputStream = processDiagramGenerator.generateDiagram(bpmnModel, "png", highLightedActivities, highLightedFlows);
+        InputStream inputStream = processDiagramGenerator.generateDiagram(bpmnModel, "png", highLightedActivities, highLightedFlows,"宋体", "微软雅黑", "黑体", null, 1.0);
         
         OutputStream outputStream = response.getOutputStream();
         
