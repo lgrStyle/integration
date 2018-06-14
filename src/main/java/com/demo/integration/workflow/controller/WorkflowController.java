@@ -143,13 +143,13 @@ public class WorkflowController {
                     }
                 }
                 
-                // 遍历匹配的集合，取得开始时间最早的一个
-                long earliestStamp = 0L;
+                // 遍历匹配的集合，取得开始时间最迟的一个
+                long latestStamp = 0L;
                 String flowId = null;
                 for(Map<String,String> map : tempMapList) {
                     long startTime = Long.valueOf(map.get("startTime"));
-                    if(earliestStamp == 0 || earliestStamp <= startTime) {
-                        earliestStamp = startTime;
+                    if(latestStamp == 0 || latestStamp <= startTime) {
+                        latestStamp = startTime;
                         flowId = map.get("flowId");
                     }
                 }
