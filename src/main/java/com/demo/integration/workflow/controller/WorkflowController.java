@@ -21,7 +21,7 @@ public class WorkflowController {
     @Autowired
     WorkflowService workflowService;
     
-    @RequestMapping("/image")
+    @RequestMapping("/processImage")
     public String image() {
         return "processImage";
     }
