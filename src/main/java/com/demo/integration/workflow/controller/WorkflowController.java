@@ -26,6 +26,11 @@ public class WorkflowController {
         return "processImage";
     }
     
+    @RequestMapping("/main")
+    public String main() {
+        return "main";
+    }
+    
     @RequestMapping("/test")
     public void test(HttpServletRequest request, HttpServletResponse response) throws IOException {
         
