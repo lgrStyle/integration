@@ -26,4 +26,12 @@ $(function(){
 		$(this).addClass("display-none");
 	});
 	
+	$(".start-up").click(function(){
+		$(".sidebar").toggleClass("sidebar-narrow");
+		$(".sidebar-nav .sidebar-menu a").toggleClass("display-none");
+		$(".sidebar-nav .sidebar-menu-2 .two-menu").toggleClass("menu-narrow");
+		$(".start-up span").toggleClass("glyphicon-menu-left");
+		$(".start-up span").toggleClass("glyphicon-menu-right");
+	});
+	
 });

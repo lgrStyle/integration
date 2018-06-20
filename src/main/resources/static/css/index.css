@@ -52,9 +52,9 @@ footer {
 	width: 100%;
 	text-align: center;
 	line-height: 39px;
-	background: #FFF;
-	border-top: 1px solid #d6d6d6;
-	color: #4c4c4c;
+	background: #34b2b1;
+	border-top: 1px solid #1BA3A3;
+	color: #fff;
 }
 
 iframe {
@@ -83,6 +83,10 @@ iframe {
     width: 160px;
     height: 100%;
     border-right: 1px solid #d6d6d6;
+}
+
+.sidebar-narrow {
+	width: 45px;
 }
 
 .main-content {
@@ -138,12 +142,9 @@ iframe {
 	cursor: pointer;
 }
 
-.sidebar-menu .sidebar-ul li span {
-	margin-right: 10px;
-}
-
 .sidebar-menu .sidebar-ul li a{
     text-decoration: none;
+    margin-left: 10px;
 }
 
 .sidebar-nav .sidebar-menu-2 .two-menu {
@@ -153,11 +154,16 @@ iframe {
 	height: calc(100% - 54px);
 	width: 350px;
 	border: 1px solid #d6d6d6;
+	background-color: #fff;
 	border-bottom: none;
 	overflow-y: auto;
 	border-radius: 5px;
 	box-shadow: 2px 2px 6px 0 #DADADA;
 	-webkit-box-shadow: 2px 2px 6px 0 #DADADA;
+}
+
+.sidebar-nav .sidebar-menu-2 .menu-narrow {
+	left: 45px;
 }
 
 .sidebar-nav .sidebar-menu-2 .two-menu ul{
