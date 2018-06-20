@@ -3,9 +3,17 @@
 * {
 	margin: 0;
 	padding: 0;
+	-webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 html,body{
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #333;
+    background-color: #fff;
 	height: 100%;
 	width: 100%;
 }
@@ -19,6 +27,19 @@ header {
 	border-bottom: 1px solid #1BA3A3;
 }
 
+.brand {
+	height: 60px;
+	width: 160px;
+	text-align: center;
+}
+
+.brand > span{
+	font-size: 40px;
+	line-height: 60px;
+	color: #fff;
+	
+}
+
 section {
 	position: relative;
 	width: 100%;
@@ -30,7 +51,7 @@ footer {
 	bottom : 0;
 	width: 100%;
 	text-align: center;
-	line-height: 40px;
+	line-height: 39px;
 	background: #FFF;
 	border-top: 1px solid #d6d6d6;
 	color: #4c4c4c;
@@ -75,15 +96,25 @@ iframe {
 	vertical-align: middle;
 	text-align: center;
 	font-size: 20px;
+	height: 30px;
 	border-bottom: 1px solid #d6d6d6;
 	cursor: pointer;
+}
+
+.start-up span {
+	line-height: 29px;
 }
 
 .upward ,.downward{
 	vertical-align: middle;
     text-align: center;
     font-size: 16px;
+    height: 24px;
     cursor: pointer;
+}
+
+.upward span,.downward span{
+	line-height: 23px;
 }
 
 .upward {
@@ -117,9 +148,9 @@ iframe {
 
 .sidebar-nav .sidebar-menu-2 .two-menu {
 	position: absolute;
-	top: 52px;
+	top: 54px;
 	left: 160px;
-	height: 100%;
+	height: calc(100% - 54px);
 	width: 350px;
 	border: 1px solid #d6d6d6;
 	border-bottom: none;
@@ -131,7 +162,12 @@ iframe {
 
 .sidebar-nav .sidebar-menu-2 .two-menu ul{
 	list-style: disc;
-	padding: 20px;
+	padding-left: 30px;
+	margin: 0;
+}
+
+.sidebar-nav .sidebar-menu-2 .two-menu ul li{
+	margin: 16px;
 }
 
 .sidebar-nav .sidebar-menu-2 .two-menu ul li a{
