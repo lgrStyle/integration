@@ -34,4 +34,13 @@ $(function(){
 		$(".start-up span").toggleClass("glyphicon-menu-right");
 	});
 	
+	$(".head-tab").click(function(){
+		let flag = $(this).hasClass("select-tab");
+		if(!flag){
+			$(this).siblings().removeClass("select-tab");
+			$(this).addClass("select-tab");
+		}
+	});
+	
+	
 });

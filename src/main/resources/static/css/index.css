@@ -27,17 +27,68 @@ header {
 	border-bottom: 1px solid #1BA3A3;
 }
 
-.brand {
+header .brand {
+	float: left;
 	height: 60px;
 	width: 160px;
 	text-align: center;
 }
 
-.brand > span{
+header .brand > span{
 	font-size: 40px;
 	line-height: 60px;
 	color: #fff;
 	
+}
+
+header .head-nav {
+	float: left;
+	width: calc(100% - 460px);
+	height: 60px;
+}
+
+header .head-tab {
+	position: relative;
+	float: left;
+	text-align: center;
+	padding-left: 15px;
+	padding-right: 15px;
+	cursor: default;
+}
+
+header .head-tab:hover{
+    background-color: #009f9f;
+}
+
+header .select-tab {
+	background-color: #008B8B;
+}
+
+header .head-tab span{
+	font-size: 16px;
+	font-weight: bold;
+	text-align: center;
+	line-height: 60px; 
+	color: #fff;
+}
+
+header .head-tab i{
+	display: none;
+}
+
+header .select-tab i{
+	position: absolute;
+	top: 2px;
+	right: 5px;
+    display: block;
+    color: #fff;
+    cursor: pointer;
+}
+
+header .head-right {
+	float: right;
+	height: 60px;
+	width: 300px;
 }
 
 section {
