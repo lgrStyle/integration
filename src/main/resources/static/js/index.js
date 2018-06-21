@@ -34,12 +34,54 @@ $(function(){
 		$(".start-up span").toggleClass("glyphicon-menu-right");
 	});
 	
-	$(".head-tab").click(function(){
+	$(document).on('click',".head-tab",function(){
 		let flag = $(this).hasClass("select-tab");
 		if(!flag){
 			$(this).siblings().removeClass("select-tab");
 			$(this).addClass("select-tab");
+			let num = this.id.split("-")[1];
+			$("iframe").addClass("display-none");
+			$("#iframe-"+num).removeClass("display-none");
 		}
+	});
+	
+	$(document).on('click',".head-tab i",function(){
+		let id = $(this).parent(".head-tab").attr("id");
+		let num = id.split("-")[1];
+		let prevId = $("#"+id).prev().attr("id");
+		let prevNum = prevId.split("-")[1];
+		$("#"+id).remove();
+		$("#iframe-"+num).remove();
+		$("#"+prevId).addClass("select-tab");
+		$("#iframe-"+prevNum).removeClass("display-none");
+		
+	});
+	
+	$(".sidebar-menu-2 a").click(function(){
+		let menuname = $(this).attr("menuname");
+		let menucode = $(this).attr("menucode");
+		let array = $(".head-tab span");
+		let flag = false;
+		let i=0;
+		for(; i<array.length; i++){
+			if(menuname == array[i].innerText){
+				flag = true;
+				break;
+			}
+		}
+		if(flag){
+			$(array[i]).parent(".head-tab").siblings().removeClass("select-tab");
+			$(array[i]).parent(".head-tab").addClass("select-tab");
+		}else{
+			$("iframe").addClass("display-none");
+			let e1 = '<div id="tab-'+i+'" class="head-tab"><span>'+menuname+'</span><i>&times;</i></div>';
+			let e2 = '<iframe src="'+menucode+'" id="iframe-'+i+'"></iframe>';
+			$("#head-tabs").append(e1);
+			$("#main-content").append(e2);
+			$("#tab-"+i).siblings().removeClass("select-tab");
+			$("#tab-"+i).addClass("select-tab");
+		}
+		
 	});
 	
 	

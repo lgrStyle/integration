@@ -39,7 +39,9 @@ header .brand > span{
 	font-size: 40px;
 	line-height: 60px;
 	color: #fff;
-	
+	animation: brand-color 3s infinite alternate;
+	-moz-animation: brand-color 3s infinite alternate;
+	-webkit-animation: brand-color 3s infinite alternate;
 }
 
 header .head-nav {
@@ -155,7 +157,7 @@ iframe {
 	width: 45px;
 }
 
-.main-content {
+#main-content {
     display: table-cell;
     vertical-align: baseline;
     height: 100%;
@@ -250,3 +252,19 @@ iframe {
 .display-none {
 	display: none;
 }
+
+@keyframes brand-color {
+	0% {color: #fff}
+	100% {color: #000}
+}
+
+@-moz-keyframes brand-color {
+    0% {color: #fff}
+    100% {color: #000}
+}
+
+@-webkit-keyframes brand-color {
+    0% {color: #fff}
+    100% {color: #000}
+}
+

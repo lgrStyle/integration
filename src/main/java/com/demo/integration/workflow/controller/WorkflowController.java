@@ -3,6 +3,7 @@ package com.demo.integration.workflow.controller;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.demo.integration.workflow.service.WorkflowService;
 
 @Controller
+@RequestMapping("/workflow")
 public class WorkflowController {
     
     @Autowired
@@ -74,10 +76,50 @@ public class WorkflowController {
         workflowService.delete(deploymentId, cascade);
     }
     
-    @RequestMapping("/getDeployment")
+    @RequestMapping("/logging")
     @ResponseBody
-    public Map<String,Object> getDeployment(){
-        return workflowService.getDeployment();
+    public Map<String,String> logging(){
+        Map<String,String> map = new HashMap<String, String>();
+        map.put("1", "工作日志");
+        return map;
+    }
+    
+    @RequestMapping("/schedule")
+    @ResponseBody
+    public Map<String,String> schedule(){
+        Map<String,String> map = new HashMap<String, String>();
+        map.put("1", "日程安排");
+        return map;
+    }
+    
+    @RequestMapping("/management")
+    @ResponseBody
+    public Map<String,String> management(){
+        Map<String,String> map = new HashMap<String, String>();
+        map.put("1", "日程管理");
+        return map;
+    }
+    
+    @RequestMapping("/mywork")
+    @ResponseBody
+    public Map<String,String> mywork(){
+        Map<String,String> map = new HashMap<String, String>();
+        map.put("1", "我的工作");
+        return map;
+    }
+    
+    @RequestMapping("/creatework")
+    @ResponseBody
+    public Map<String,String> creatework(){
+        Map<String,String> map = new HashMap<String, String>();
+        map.put("1", "新建工作");
+        return map;
+    }
+    
+    @RequestMapping("/history")
+    @ResponseBody
+    public String history(){
+        return "历史查询";
     }
     
     
