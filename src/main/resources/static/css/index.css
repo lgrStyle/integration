@@ -91,6 +91,20 @@ header .head-right {
 	width: 300px;
 }
 
+header .head-right .head-menu{
+	float: right;
+	text-align: center;
+	font-size: 24px;
+	color: #fff;
+	line-height: 60px;
+	width: 60px;
+	cursor: pointer;
+}
+
+header .head-right .head-menu:hover {
+	transform: translateY(-5px);
+}
+
 section {
 	position: relative;
 	width: 100%;
