@@ -1,4 +1,5 @@
 $(function(){
+	
 	let number = 0;
 	
 	$(".sidebar-menu .sidebar-ul li").mouseover(function(){
@@ -88,5 +89,17 @@ $(function(){
 		
 	});
 	
+	//注销
+	$("#logout").click(function(){
+		$.ajax({
+			url: "/logout",
+			type: "post",
+			dataType: "html",
+			asycn: true,
+			success: function(data){
+				window.location.href = root+"/index";
+			}
+		});
+	});
 	
 });
