@@ -89,6 +89,34 @@ header .select-tab i{
     cursor: pointer;
 }
 
+header .head-tab-left {
+	float: left;
+	text-align: center;
+	line-height: 60px;
+	color: #fff;
+	cursor: pointer;
+	width: 36px;
+}
+
+header .head-tab-left:hover {
+    font-size: 18px;
+    color: #000;
+}
+
+header .head-tab-right {
+    float: right;
+    text-align: center;
+    line-height: 60px;
+    color: #fff;
+    cursor: pointer;
+    width: 36px;
+}
+
+header .head-tab-right:hover {
+	font-size: 18px;
+	color: #000;
+}
+
 header .head-right {
 	float: right;
 	height: 60px;

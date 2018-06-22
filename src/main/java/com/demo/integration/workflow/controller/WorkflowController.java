@@ -110,5 +110,9 @@ public class WorkflowController {
         return "历史查询";
     }
     
-    
+    @RequestMapping("/flowManage")
+    @ResponseBody
+    public String flowManage(){
+        return "流程管理";
+    }
 }
