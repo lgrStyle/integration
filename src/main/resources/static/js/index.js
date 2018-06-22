@@ -1,4 +1,6 @@
 $(function(){
+	let number = 0;
+	
 	$(".sidebar-menu .sidebar-ul li").mouseover(function(){
 		$(this).siblings().removeClass("menu-on");
 		$(this).addClass("menu-on");
@@ -35,17 +37,14 @@ $(function(){
 	});
 	
 	$(document).on('click',".head-tab",function(){
-		let flag = $(this).hasClass("select-tab");
-		if(!flag){
-			$(this).siblings().removeClass("select-tab");
-			$(this).addClass("select-tab");
-			let num = this.id.split("-")[1];
-			$("iframe").addClass("display-none");
-			$("#iframe-"+num).removeClass("display-none");
-		}
+		$(this).siblings().removeClass("select-tab");
+		$(this).addClass("select-tab");
+		let num = this.id.split("-")[1];
+		$("iframe").addClass("display-none");
+		$("#iframe-"+num).removeClass("display-none");
 	});
 	
-	$(document).on('click',".head-tab i",function(){
+	$(document).on('click',".head-tab i",function(event){
 		let id = $(this).parent(".head-tab").attr("id");
 		let num = id.split("-")[1];
 		let prevId = $("#"+id).prev().attr("id");
@@ -54,7 +53,7 @@ $(function(){
 		$("#iframe-"+num).remove();
 		$("#"+prevId).addClass("select-tab");
 		$("#iframe-"+prevNum).removeClass("display-none");
-		
+		event.stopPropagation();
 	});
 	
 	$(".sidebar-menu-2 a").click(function(){
@@ -72,14 +71,19 @@ $(function(){
 		if(flag){
 			$(array[i]).parent(".head-tab").siblings().removeClass("select-tab");
 			$(array[i]).parent(".head-tab").addClass("select-tab");
-		}else{
+			let id = $(array[i]).parent(".head-tab").attr("id");
+			let num = id.split("-")[1];
 			$("iframe").addClass("display-none");
-			let e1 = '<div id="tab-'+i+'" class="head-tab"><span>'+menuname+'</span><i>&times;</i></div>';
-			let e2 = '<iframe src="'+menucode+'" id="iframe-'+i+'"></iframe>';
+			$("#iframe-"+num).removeClass("display-none");
+		}else{
+			number++;
+			$("iframe").addClass("display-none");
+			let e1 = '<div id="tab-'+number+'" class="head-tab"><span>'+menuname+'</span><i>&times;</i></div>';
+			let e2 = '<iframe src="'+menucode+'" id="iframe-'+number+'"></iframe>';
 			$("#head-tabs").append(e1);
 			$("#main-content").append(e2);
-			$("#tab-"+i).siblings().removeClass("select-tab");
-			$("#tab-"+i).addClass("select-tab");
+			$("#tab-"+number).siblings().removeClass("select-tab");
+			$("#tab-"+number).addClass("select-tab");
 		}
 		
 	});

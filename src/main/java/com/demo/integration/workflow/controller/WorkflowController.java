@@ -3,8 +3,6 @@ package com.demo.integration.workflow.controller;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -78,42 +76,32 @@ public class WorkflowController {
     
     @RequestMapping("/logging")
     @ResponseBody
-    public Map<String,String> logging(){
-        Map<String,String> map = new HashMap<String, String>();
-        map.put("1", "工作日志");
-        return map;
+    public String logging(){
+        return "工作日志";
     }
     
     @RequestMapping("/schedule")
     @ResponseBody
-    public Map<String,String> schedule(){
-        Map<String,String> map = new HashMap<String, String>();
-        map.put("1", "日程安排");
-        return map;
+    public String schedule(){
+        return "日程安排";
     }
     
     @RequestMapping("/management")
     @ResponseBody
-    public Map<String,String> management(){
-        Map<String,String> map = new HashMap<String, String>();
-        map.put("1", "日程管理");
-        return map;
+    public String management(){
+        return "日程管理";
     }
     
     @RequestMapping("/mywork")
     @ResponseBody
-    public Map<String,String> mywork(){
-        Map<String,String> map = new HashMap<String, String>();
-        map.put("1", "我的工作");
-        return map;
+    public String mywork(){
+        return "我的工作";
     }
     
     @RequestMapping("/creatework")
     @ResponseBody
-    public Map<String,String> creatework(){
-        Map<String,String> map = new HashMap<String, String>();
-        map.put("1", "新建工作");
-        return map;
+    public String creatework(){
+        return "新建工作";
     }
     
     @RequestMapping("/history")
