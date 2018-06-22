@@ -56,9 +56,9 @@ $(function(){
 		event.stopPropagation();
 	});
 	
-	$(".sidebar-menu-2 a").click(function(){
-		let menuname = $(this).attr("menuname");
-		let menucode = $(this).attr("menucode");
+	$(".click-menu").click(function(){
+		let menuname = $(this).children("a").attr("menuname");
+		let menucode = $(this).children("a").attr("menucode");
 		let array = $(".head-tab span");
 		let flag = false;
 		let i=0;
