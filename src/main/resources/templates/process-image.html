@@ -3,6 +3,6 @@
     <head>
     </head>
     <body>
-        <img alt="image" src="/workflow/getResourceByKey?processDefinitionKey=testProcess">
+        <img alt="image" th:src="@{/workflow/getResourceById(processDefinitionId=${processDefinitionId})}">
     </body>
 </html>

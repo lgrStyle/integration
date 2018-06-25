@@ -23,11 +23,6 @@ public class WorkflowController {
     @Autowired
     WorkflowService workflowService;
     
-    @RequestMapping("/process-image")
-    public String processImage() {
-        return "process-image";
-    }
-    
     @RequestMapping("/main")
     public String main() {
         return "main";
@@ -73,6 +68,13 @@ public class WorkflowController {
     @ResponseBody
     public String flowManage(){
         return "流程管理";
+    }
+    
+    @RequestMapping("/process-image")
+    public ModelAndView processImage(String processDefinitionId) {
+        ModelAndView mav = new ModelAndView("process-image");
+        mav.addObject("processDefinitionId", processDefinitionId);
+        return mav;
     }
     
     @RequestMapping("/getResourceByTaskId")
