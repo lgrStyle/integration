@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head lang="zh">
+        <title>流程定义</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <link rel="stylesheet"  href="/webjars/bootstrap/bootstrap.css">
+        <script type="text/javascript" src="/webjars/jquery/jquery.js"></script>
+        <script type="text/javascript"  src="/webjars/bootstrap/bootstrap.js"></script>
+    </head>
+    <body>
+        <div class="">
+        <table class="table" >
+            <thead>
+                <tr>
+                    <th>流程定义ID</th>
+                    <th>部署ID</th>
+                    <th>流程定义名称</th>
+                    <th>流程定义KEY</th>
+                    <th>版本号</th>
+                    <th>XML资源名称</th>
+                    <th>图片资源名称</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="pd : ${processDefinition}">
+                    <td th:text="${pd.id}"></td>
+                    <td th:text="${pd.deploymentId}"></td>
+                    <td th:text="${pd.name}"></td>
+                    <td th:text="${pd.key}"></td>
+                    <td th:text="${pd.version}"></td>
+                    <td th:text="${pd.resourceName}"></td>
+                    <td th:text="${pd.diagramResourceName}"></td>
+                    <td>删除</td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+    </body>
+</html>

@@ -3,6 +3,7 @@ package com.demo.integration.workflow.controller;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.demo.integration.workflow.service.WorkflowService;
 
@@ -72,6 +74,13 @@ public class WorkflowController {
     @RequestMapping("/deleteDeploy")
     public void deleteDeploy(String deploymentId,boolean cascade) {
         workflowService.delete(deploymentId, cascade);
+    }
+    
+    @RequestMapping("/process-list")
+    public ModelAndView processList() {
+        Map<String,Object> map = workflowService.getDeployment();
+        ModelAndView mav = new ModelAndView("/process-list",map);
+        return mav;
     }
     
     @RequestMapping("/logging")
