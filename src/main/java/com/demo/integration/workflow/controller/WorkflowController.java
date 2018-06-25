@@ -23,64 +23,14 @@ public class WorkflowController {
     @Autowired
     WorkflowService workflowService;
     
-    @RequestMapping("/processImage")
-    public String image() {
-        return "processImage";
+    @RequestMapping("/process-image")
+    public String processImage() {
+        return "process-image";
     }
     
     @RequestMapping("/main")
     public String main() {
         return "main";
-    }
-    
-    @RequestMapping("/test")
-    public void test(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        
-        String taskId = request.getParameter("taskId");
-        
-        InputStream inputStream = workflowService.getResourceByTaskId(taskId);
-        
-        OutputStream outputStream = response.getOutputStream();
-        
-        byte[] b = new byte[1024];
-        int len ;
-        while((len = inputStream.read(b)) != -1) {
-            outputStream.write(b,0,len);
-        }
-        outputStream.close();
-        inputStream.close();
-        
-    }
-    
-    @RequestMapping("/test1")
-    public void test1(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        
-        String processDefinitionKey = request.getParameter("processDefinitionKey");
-        
-        InputStream inputStream = workflowService.getResourceByKey(processDefinitionKey);
-        
-        OutputStream outputStream = response.getOutputStream();
-        
-        byte[] b = new byte[1024];
-        int len ;
-        while((len = inputStream.read(b)) != -1) {
-            outputStream.write(b,0,len);
-        }
-        outputStream.close();
-        inputStream.close();
-        
-    }
-    
-    @RequestMapping("/deleteDeploy")
-    public void deleteDeploy(String deploymentId,boolean cascade) {
-        workflowService.delete(deploymentId, cascade);
-    }
-    
-    @RequestMapping("/process-list")
-    public ModelAndView processList() {
-        Map<String,Object> map = workflowService.getDeployment();
-        ModelAndView mav = new ModelAndView("/process-list",map);
-        return mav;
     }
     
     @RequestMapping("/logging")
@@ -124,4 +74,74 @@ public class WorkflowController {
     public String flowManage(){
         return "流程管理";
     }
+    
+    @RequestMapping("/getResourceByTaskId")
+    public void getResourceByTaskId(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        
+        String taskId = request.getParameter("taskId");
+        
+        InputStream inputStream = workflowService.getResourceByTaskId(taskId);
+        
+        OutputStream outputStream = response.getOutputStream();
+        
+        byte[] b = new byte[1024];
+        int len ;
+        while((len = inputStream.read(b)) != -1) {
+            outputStream.write(b,0,len);
+        }
+        outputStream.close();
+        inputStream.close();
+        
+    }
+    
+    @RequestMapping("/getResourceByKey")
+    public void getResourceByKey(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        
+        String processDefinitionKey = request.getParameter("processDefinitionKey");
+        
+        InputStream inputStream = workflowService.getResourceByKey(processDefinitionKey);
+        
+        OutputStream outputStream = response.getOutputStream();
+        
+        byte[] b = new byte[1024];
+        int len ;
+        while((len = inputStream.read(b)) != -1) {
+            outputStream.write(b,0,len);
+        }
+        outputStream.close();
+        inputStream.close();
+        
+    }
+    
+    @RequestMapping("/getResourceById")
+    public void getResourceById(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        
+        String processDefinitionId= request.getParameter("processDefinitionId");
+        
+        InputStream inputStream = workflowService.getResourceById(processDefinitionId);
+        
+        OutputStream outputStream = response.getOutputStream();
+        
+        byte[] b = new byte[1024];
+        int len ;
+        while((len = inputStream.read(b)) != -1) {
+            outputStream.write(b,0,len);
+        }
+        outputStream.close();
+        inputStream.close();
+        
+    }
+    
+    @RequestMapping("/deleteDeploy")
+    public void deleteDeploy(String deploymentId,boolean cascade) {
+        workflowService.delete(deploymentId, cascade);
+    }
+    
+    @RequestMapping("/processList")
+    public ModelAndView processList() {
+        Map<String,Object> map = workflowService.getDeployment();
+        ModelAndView mav = new ModelAndView("/process-list",map);
+        return mav;
+    }
+    
 }

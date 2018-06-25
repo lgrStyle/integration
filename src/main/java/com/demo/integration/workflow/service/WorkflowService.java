@@ -17,4 +17,6 @@ public interface WorkflowService {
 
     InputStream getResourceByKey(String processDefinitionKey);
     
+    InputStream getResourceById(String processDefinitionId);
+    
 }

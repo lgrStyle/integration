@@ -87,6 +87,18 @@ public class WorkflowServiceImpl implements WorkflowService{
     }
     
     @Override
+    public InputStream getResourceById(String processDefinitionId) {
+        BpmnModel bpmnModel = repositoryService.getBpmnModel(processDefinitionId);
+        ProcessEngineConfiguration  processEngineConfiguration = processEngine.getProcessEngineConfiguration();
+        
+        ProcessDiagramGenerator processDiagramGenerator = processEngineConfiguration.getProcessDiagramGenerator();
+        
+        InputStream inputStream = processDiagramGenerator.generateDiagram(bpmnModel, "jpg", "宋体", "微软雅黑", "黑体", null, 1.0);
+        
+        return inputStream;
+    }
+    
+    @Override
     public InputStream getResourceByTaskId(String taskId) {
         Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
         
@@ -184,4 +196,5 @@ public class WorkflowServiceImpl implements WorkflowService{
         
         return highLightedFlows;
     }
+
 }

@@ -7,35 +7,51 @@
         <link rel="stylesheet"  href="/webjars/bootstrap/bootstrap.css">
         <script type="text/javascript" src="/webjars/jquery/jquery.js"></script>
         <script type="text/javascript"  src="/webjars/bootstrap/bootstrap.js"></script>
+        <script type="text/javascript" src="/js/common.js"></script>
+        <script type="text/javascript" src="/js/process-list.js"></script>
+        <style type="text/css">
+            .contain {
+                margin: 0 20px;
+            }
+            .table th, .table td {
+                text-align: center;
+            }
+        </style>
     </head>
     <body>
-        <div class="">
-        <table class="table" >
-            <thead>
-                <tr>
-                    <th>流程定义ID</th>
-                    <th>部署ID</th>
-                    <th>流程定义名称</th>
-                    <th>流程定义KEY</th>
-                    <th>版本号</th>
-                    <th>XML资源名称</th>
-                    <th>图片资源名称</th>
-                    <th>操作</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="pd : ${processDefinition}">
-                    <td th:text="${pd.id}"></td>
-                    <td th:text="${pd.deploymentId}"></td>
-                    <td th:text="${pd.name}"></td>
-                    <td th:text="${pd.key}"></td>
-                    <td th:text="${pd.version}"></td>
-                    <td th:text="${pd.resourceName}"></td>
-                    <td th:text="${pd.diagramResourceName}"></td>
-                    <td>删除</td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="contain">
+	        <div class="table-responsive">
+		        <table class="table table-striped table-bordered table-hover">
+		            <thead>
+		                <tr>
+		                    <th>流程定义ID</th>
+		                    <th>部署ID</th>
+		                    <th>流程定义名称</th>
+		                    <th>流程定义KEY</th>
+		                    <th>版本号</th>
+		                    <th>XML资源名称</th>
+		                    <th>图片资源名称</th>
+		                    <th>操作</th>
+		                </tr>
+		            </thead>
+		            <tbody>
+		                <tr th:each="pd : ${processDefinition}">
+		                    <td><a class="viewImage" href="javascript:" th:text="${pd.id}"></a></td>
+		                    <td th:text="${pd.deploymentId}"></td>
+		                    <td th:text="${pd.name}"></td>
+		                    <td th:text="${pd.key}"></td>
+		                    <td th:text="${pd.version}"></td>
+		                    <td th:text="${pd.resourceName}"></td>
+		                    <td th:text="${pd.diagramResourceName}"></td>
+		                    <td>
+			                    <a class="deleteDeploy" href="javascript:">删除</a>
+			                    &nbsp;&nbsp;
+			                    <a class="completeDelete" href="javascript:">彻底删除</a>
+		                    </td>
+		                </tr>
+		            </tbody>
+		        </table>
+	        </div>
         </div>
     </body>
 </html>
