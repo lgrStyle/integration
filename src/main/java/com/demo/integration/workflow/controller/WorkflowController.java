@@ -1,13 +1,9 @@
 package com.demo.integration.workflow.controller;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Map;
-import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -150,15 +146,7 @@ public class WorkflowController {
     
     @RequestMapping("/upload")
     public String uploadFile(@RequestParam("deploymentFile") MultipartFile multipartFile, @RequestParam("deploymentName")String deploymentName) throws IOException {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
-        String fileName = sdf.format(new Date()) + new Random().nextInt(1000) +"_"+ multipartFile.getOriginalFilename();
-        String filePath = "D:/temp";
-        File file = new File(filePath,fileName);
-        if(!file.getParentFile().exists()) {
-            file.getParentFile().mkdirs();
-        }
-        multipartFile.transferTo(file);
-        workflowService.deploy(file, deploymentName);
+        workflowService.deploy(multipartFile.getInputStream(), deploymentName);
         return "redirect:/workflow/processList";
     }
 }

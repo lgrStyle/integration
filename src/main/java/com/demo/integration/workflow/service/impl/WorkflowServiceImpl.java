@@ -1,8 +1,5 @@
 package com.demo.integration.workflow.service.impl;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -48,8 +45,8 @@ public class WorkflowServiceImpl implements WorkflowService{
     private HistoryService historyService;
 
     @Override
-    public void deploy(File file,String name) throws FileNotFoundException {
-        ZipInputStream zipInputStream = new ZipInputStream(new FileInputStream(file));
+    public void deploy(InputStream in,String name) {
+        ZipInputStream zipInputStream = new ZipInputStream(in);
         repositoryService.createDeployment()
             .name(name)
             .addZipInputStream(zipInputStream)
