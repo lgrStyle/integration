@@ -64,12 +64,6 @@ public class WorkflowController {
         return "历史查询";
     }
     
-    @RequestMapping("/flowManage")
-    @ResponseBody
-    public String flowManage(){
-        return "流程管理";
-    }
-    
     @RequestMapping("/process-image")
     public ModelAndView processImage(String processDefinitionId) {
         ModelAndView mav = new ModelAndView("process-image");
@@ -135,8 +129,10 @@ public class WorkflowController {
     }
     
     @RequestMapping("/deleteDeploy")
-    public void deleteDeploy(String deploymentId,boolean cascade) {
+    @ResponseBody
+    public String deleteDeploy(String deploymentId,boolean cascade) {
         workflowService.delete(deploymentId, cascade);
+        return "success";
     }
     
     @RequestMapping("/processList")
