@@ -1,9 +1,13 @@
 package com.demo.integration.workflow.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,7 +15,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.demo.integration.workflow.service.WorkflowService;
@@ -142,4 +148,17 @@ public class WorkflowController {
         return mav;
     }
     
+    @RequestMapping("/upload")
+    public String uploadFile(@RequestParam("deploymentFile") MultipartFile multipartFile, @RequestParam("deploymentName")String deploymentName) throws IOException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+        String fileName = sdf.format(new Date()) + new Random().nextInt(1000) +"_"+ multipartFile.getOriginalFilename();
+        String filePath = "D:/temp";
+        File file = new File(filePath,fileName);
+        if(!file.getParentFile().exists()) {
+            file.getParentFile().mkdirs();
+        }
+        multipartFile.transferTo(file);
+        workflowService.deploy(file, deploymentName);
+        return "redirect:/workflow/processList";
+    }
 }
