@@ -145,7 +145,7 @@ public class WorkflowController {
     }
     
     @RequestMapping("/upload")
-    public String uploadFile(@RequestParam("deploymentFile") MultipartFile multipartFile, @RequestParam("deploymentName")String deploymentName) throws IOException {
+    public String uploadFile(@RequestParam("deploymentFile") MultipartFile multipartFile, @RequestParam("deploymentName")String deploymentName) throws IOException{
         workflowService.deploy(multipartFile.getInputStream(), deploymentName);
         return "redirect:/workflow/processList";
     }

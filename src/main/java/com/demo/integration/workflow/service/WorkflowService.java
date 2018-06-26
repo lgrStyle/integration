@@ -1,12 +1,11 @@
 package com.demo.integration.workflow.service;
 
-import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Map;
 
 public interface WorkflowService {
 
-    void deploy(InputStream in,String name) throws FileNotFoundException;
+    void deploy(InputStream in,String name);
     
     void delete(String deploymentId,boolean cascade);
     
