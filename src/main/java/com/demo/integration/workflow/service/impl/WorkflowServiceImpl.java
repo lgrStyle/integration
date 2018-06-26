@@ -58,7 +58,7 @@ public class WorkflowServiceImpl implements WorkflowService{
 
     @Override
     public void delete(String deploymentId,boolean cascade) {
-        repositoryService.deleteDeployment(deploymentId, cascade);;
+        repositoryService.deleteDeployment(deploymentId, cascade);
     }
     
     @Override
