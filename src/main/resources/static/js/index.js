@@ -79,8 +79,8 @@ $(function(){
 		}else{
 			number++;
 			$("iframe").addClass("display-none");
-			let e1 = '<div id="tab-'+number+'" class="head-tab"><span>'+menuname+'</span><i>&times;</i></div>';
-			let e2 = '<iframe src="'+menucode+'" id="iframe-'+number+'"></iframe>';
+			let e1 = `<div id="tab-${number}" class="head-tab"><span>${menuname}</span><i>&times;</i></div>`;
+			let e2 = `<iframe src="${menucode}" id="iframe-${number}"></iframe>`;
 			$("#head-tabs").append(e1);
 			$("#main-content").append(e2);
 			$("#tab-"+number).siblings().removeClass("select-tab");
@@ -90,7 +90,7 @@ $(function(){
 	});
 	
 	//注销
-	$("#logout").click(function(){
+	$("#logout").click(() => {
 		$.ajax({
 			url: "/logout",
 			type: "post",
