@@ -49,21 +49,18 @@ public class WorkflowController {
     }
     
     @RequestMapping("/mywork")
-    @ResponseBody
     public String mywork(){
-        return "我的工作";
+        return "my-work";
     }
     
     @RequestMapping("/creatework")
-    @ResponseBody
     public String creatework(){
-        return "新建工作";
+        return "new-work";
     }
     
     @RequestMapping("/history")
-    @ResponseBody
     public String history(){
-        return "历史查询";
+        return "history-query";
     }
     
     @RequestMapping("/process-image")
