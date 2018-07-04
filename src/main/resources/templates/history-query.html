@@ -9,9 +9,87 @@
 <link rel="stylesheet" href="/plugin/jquery-easyui-1.5.5/themes/gray/easyui.css">
 <script type="text/javascript" src="/webjars/jquery/jquery.js"></script>
 <script type="text/javascript" src="/plugin/jquery-easyui-1.5.5/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="/plugin/jquery-easyui-1.5.5/datagrid-filter.js"></script>
 <script type="text/javascript" src="/plugin/jquery-easyui-1.5.5/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript" src="/js/history-query.js"></script>
+<style type="text/css">
+  .toolbar table {
+    margin: 15px;
+    border-collapse: collapse;
+  }
+  .toolbar table td {
+    height: 32px;
+    border: 1px solid #bbb;
+  }
+  .toolbar table td:nth-child(odd) {
+    width: 120px;
+    text-align: center;
+  }
+  .toolbar table tr .btn-group {
+    padding-left: 15px;
+    text-align: left;
+  }
+  .toolbar table tr .btn-group button {
+    width: 100px;
+  }
+  .grid-height{
+    height: 100%;
+    width: 100%;
+  }
+  
+</style>
 </head>
 <body>
-  <h2>历史查询</h2>
+  <div id="tb" class="toolbar">
+    <form>
+      <table>
+        <tr>
+          <td>流水号：</td>
+          <td><input type="text" name="flow-id" id="flow-id" class="easyui-textbox"></td>
+          <td>流程标题：</td>
+          <td><input type="text" name="flow-title" id="flow-title" class="easyui-textbox"></td>
+          <td>日期范围：</td>
+          <td>
+            <input type="text" name="date-begin" id="date-begin" class="easyui-datebox" data-options="editable:false">
+            <span>至：</span> 
+            <input type="text" name="date-end" id="date-end" class="easyui-datebox" data-options="editable:false">        
+          </td>
+        </tr>
+        <tr>
+          <td>所属流程：</td>
+          <td><select class="easyui-combobox" data-options="editable:false,width:120"></select></td>
+          <td>查询范围：</td>
+          <td>
+            <select class="easyui-combobox" data-options="editable:false,width:120">
+              <option>我发起的</option>
+              <option>我经办的</option>
+              <option>我管理的</option>
+              <option>我关注的</option>
+              <option>我查阅的</option>
+            </select>
+          </td>
+          <td>流程状态：</td>
+          <td>
+            <select class="easyui-combobox" data-options="editable:false,width:120">
+              <option>所有状态</option>
+              <option>执行中</option>
+              <option>已结束</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="6" class="btn-group">
+            <button type="button" class="easyui-linkbutton">查询</button>
+            <button type="button" class="easyui-linkbutton">导出</button>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </div>
+  <div class="grid-height">
+    <div id="history-data" class="easyui-datagrid" toolbar="#tb">
+      
+    </div>
+  </div>
 </body>
 </html>
