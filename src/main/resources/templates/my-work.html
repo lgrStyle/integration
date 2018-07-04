@@ -1,12 +1,38 @@
 <!DOCTYPE html>
 <html>
 <head lang="zh">
-<meta charset="UTF-8">
 <title>我的工作</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="/css/common.css">
+<link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.css">
+<script type="text/javascript" src="/webjars/jquery/jquery.js"></script>
+<script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.js"></script>
+<style type="text/css">
+  section {
+    position: relative;
+    width: 100%;
+    height: calc(100% - 41px);
+  }
+  iframe {
+    border: none;
+    width: 100%;
+    height: 100%;
+  }
+</style>
 </head>
 <body>
-  <div class="tabs">
-    
-  </div>
+  <header>
+    <ul class="nav nav-tabs ">
+     <li role="presentation" class="active" data-toggle="tab"><a href="javascript:">我的待办</a></li>
+     <li role="presentation" data-toggle="tab"><a href="javascript:">我已办结</a></li>
+     <li role="presentation" data-toggle="tab"><a href="javascript:">我的查阅</a></li>
+     <li role="presentation" data-toggle="tab"><a href="javascript:">我的关注</a></li>
+     <li role="presentation" data-toggle="tab"><a href="javascript:">挂起工作</a></li>
+    </ul>
+  </header>
+  <section>
+    <iframe src="/workflow/processList"></iframe>
+  </section>
 </body>
 </html>
