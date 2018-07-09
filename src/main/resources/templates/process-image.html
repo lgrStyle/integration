@@ -3,6 +3,14 @@
     <head>
     </head>
     <body>
+      <div th:if="${not #lists.isEmpty(processDefinitionId)}">
         <img alt="image" th:src="@{/workflow/getResourceById(processDefinitionId=${processDefinitionId})}">
+      </div>
+      <div th:if="${not #lists.isEmpty(processDefinitionKey)}">  
+        <img alt="image" th:src="@{/workflow/getResourceByKey(processDefinitionKey=${processDefinitionKey})}">
+      </div> 
+      <div th:if="${not #lists.isEmpty(taskId)}">  
+        <img alt="image" th:src="@{/workflow/getResourceByTaskId(taskId=${taskId})}">
+      </div> 
     </body>
 </html>

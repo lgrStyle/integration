@@ -31,7 +31,8 @@ $(function(){
 	}
 	
 	$("#refresh").on("click",function(){
-		window.location.href = root+"/workflow/processList";
+//		window.location.href = root+"/workflow/processList";
+		window.location.reload();
 	});
 	
 });

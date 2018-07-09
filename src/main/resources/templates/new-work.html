@@ -7,6 +7,8 @@
 <link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.css">
 <script type="text/javascript" src="/webjars/jquery/jquery.js"></script>
 <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.js"></script>
+<script type="text/javascript" src="/js/common.js"></script>
+<script type="text/javascript" src="/js/new-work.js"></script>
 <style type="text/css">
   .row-first {
     margin-top: 15px;
@@ -30,56 +32,64 @@
       <div class="col-md-4 col-sm-6">
         <div class="panel panel-default">
           <div class="panel-heading">考勤</div>
-          <div class="panel-body">
-            <p>Some default panel content here. Nulla vitae elit libero, 
-           a pharetra augue. Aenean lacinia bibendum nulla sed consectetur.
-            Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. 
-            Nullam id dolor id nibh ultricies vehicula ut id elit.
-            </p>
-          </div>
           <ul class="list-group">
-            <li class="list-group-item"><a href="javascript:">加班申请</a><span class="glyphicon glyphicon-flag" title="流程图"></span></li>
-            <li class="list-group-item"><a href="javascript:">调休申请</a><span class="glyphicon glyphicon-flag" title="流程图"></span></li>
-            <li class="list-group-item"><a href="javascript:">请假申请</a><span class="glyphicon glyphicon-flag" title="流程图"></span></li>
-            <li class="list-group-item"><a href="javascript:">外出申请</a><span class="glyphicon glyphicon-flag" title="流程图"></span></li>
-            <li class="list-group-item"><a href="javascript:">忘打卡申请</a><span class="glyphicon glyphicon-flag" title="流程图"></span></li>
+            <li class="list-group-item"><a href="javascript:" onclick="createWork('testProcess','加班申请',0)">加班申请</a><span class="glyphicon glyphicon-flag" title="流程图" onclick="viewGraph('testProcess')"></span></li>
+            <li class="list-group-item"><a href="javascript:" onclick="createWork('testProcess','调休申请',1)">调休申请</a><span class="glyphicon glyphicon-flag" title="流程图"></span></li>
+            <li class="list-group-item"><a href="javascript:" onclick="createWork('testProcess','请假申请',2)">请假申请</a><span class="glyphicon glyphicon-flag" title="流程图"></span></li>
+            <li class="list-group-item"><a href="javascript:" onclick="createWork('testProcess','外出申请',3)">外出申请</a><span class="glyphicon glyphicon-flag" title="流程图"></span></li>
+            <li class="list-group-item"><a href="javascript:" onclick="createWork('testProcess','忘打卡申请',1)">忘打卡申请</a><span class="glyphicon glyphicon-flag" title="流程图"></span></li>
          </ul>
         </div>
       </div>
       <div class="col-md-4 col-sm-6">
         <div class="panel panel-default">
           <div class="panel-heading">人事</div>
-          <div class="panel-body">
-            <p>Some default panel content here. Nulla vitae elit libero, 
-           a pharetra augue. Aenean lacinia bibendum nulla sed consectetur.
-            Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. 
-            Nullam id dolor id nibh ultricies vehicula ut id elit.
-            </p>
-          </div>
           <ul class="list-group">
-            <li class="list-group-item"><a href="javascript:">入职申请</a><span class="glyphicon glyphicon-flag" title="流程图"></span></li>
-            <li class="list-group-item"><a href="javascript:">离职申请</a><span class="glyphicon glyphicon-flag" title="流程图"></span></li>
+            <li class="list-group-item"><a href="javascript:" onclick="createWork('testProcess','入职申请',1)">入职申请</a><span class="glyphicon glyphicon-flag" title="流程图"></span></li>
+            <li class="list-group-item"><a href="javascript:" onclick="createWork('testProcess','离职申请',1)">离职申请</a><span class="glyphicon glyphicon-flag" title="流程图"></span></li>
          </ul>
         </div>
       </div>
       <div class="col-md-4 col-sm-6">
         <div class="panel panel-default">
           <div class="panel-heading">报销</div>
-          <div class="panel-body">
-            <p>Some default panel content here. Nulla vitae elit libero, 
-           a pharetra augue. Aenean lacinia bibendum nulla sed consectetur.
-            Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. 
-            Nullam id dolor id nibh ultricies vehicula ut id elit.
-            </p>
-          </div>
           <ul class="list-group">
-            <li class="list-group-item"><a href="javascript:">住宿报销</a><span class="glyphicon glyphicon-flag" title="流程图"></span></li>
-            <li class="list-group-item"><a href="javascript:">外出补贴</a><span class="glyphicon glyphicon-flag" title="流程图"></span></li>
+            <li class="list-group-item"><a href="javascript:" onclick="createWork('testProcess','住宿申请',1)">住宿报销</a><span class="glyphicon glyphicon-flag" title="流程图"></span></li>
+            <li class="list-group-item"><a href="javascript:" onclick="createWork('testProcess','外出申请',1)">外出补贴</a><span class="glyphicon glyphicon-flag" title="流程图"></span></li>
          </ul>
         </div>
       </div>
     </div>
     
+    <div id="title-modal" class="modal fade" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <span>新建工作</span>
+          </div>
+          <div class="modal-body">
+            <div id="msgTip"><p>请点击确定后确认创建工作。</p></div>
+            <div id="suffixForm" class="form-inline">
+              <label for="suffix">工作名称后缀：</label>
+              <input type="text" class="form-control" id="suffix" name="suffix">
+            </div>
+            <div id="prefixForm" class="form-inline">
+              <label for="prefix">工作名称前缀：</label>
+              <input type="text" class="form-control" id="preName" name="prefix">
+            </div>
+            <div id="titleForm" class="form-inline">
+              <label for="title">工作名称：</label>
+              <input type="text" class="form-control" id="title" name="title">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            <button type="button" class="btn btn-primary" onclick="doCreate()">确定</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </body>
 </html>

@@ -5,7 +5,7 @@ function openFullWindow(url,name){
 	let top = 0;
 	let left = 0;
 	let height = window.screen.availHeight - 80;
-	let width = window.screen.availWidth;
+	let width = window.screen.availWidth - 10;
 
 	features += ",width=" + width;
 	features += ",height=" + height;
@@ -14,3 +14,4 @@ function openFullWindow(url,name){
 	
 	window.open(url,name,features);
 }
+

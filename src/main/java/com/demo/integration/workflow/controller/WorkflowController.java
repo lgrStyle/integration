@@ -3,11 +3,15 @@ package com.demo.integration.workflow.controller;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.demo.integration.login.entity.User;
 import com.demo.integration.workflow.service.WorkflowService;
 
 @Controller
@@ -64,9 +69,17 @@ public class WorkflowController {
     }
     
     @RequestMapping("/process-image")
-    public ModelAndView processImage(String processDefinitionId) {
+    public ModelAndView processImage(String processDefinitionId, String processDefinitionKey, String taskId) {
         ModelAndView mav = new ModelAndView("process-image");
-        mav.addObject("processDefinitionId", processDefinitionId);
+        if(processDefinitionId != null) {
+            mav.addObject("processDefinitionId", processDefinitionId);
+        }
+        if(processDefinitionKey != null) {
+            mav.addObject("processDefinitionKey", processDefinitionKey);
+        }
+        if(taskId != null) {
+            mav.addObject("taskId", taskId);
+        }
         return mav;
     }
     
@@ -141,9 +154,28 @@ public class WorkflowController {
         return mav;
     }
     
-    @RequestMapping("/upload")
-    public String uploadFile(@RequestParam("deploymentFile") MultipartFile multipartFile, @RequestParam("deploymentName")String deploymentName) throws IOException{
+    @RequestMapping("/deploy")
+    public String deploy(@RequestParam("deploymentFile") MultipartFile multipartFile, @RequestParam("deploymentName")String deploymentName) throws IOException{
         workflowService.deploy(multipartFile.getInputStream(), deploymentName);
         return "redirect:/workflow/processList";
+    }
+    
+    @RequestMapping("/startFlow")
+    @ResponseBody
+    public String startFlow(HttpServletRequest request) {
+        User user = (User)SecurityUtils.getSubject().getPrincipal();
+//        String processKey = request.getParameter("processKey");
+        String processName = request.getParameter("processName");
+        String suffix = request.getParameter("suffix");
+        String prefix = request.getParameter("prefix");
+        String title = request.getParameter("title");
+        SimpleDateFormat sdf = new SimpleDateFormat("MM月dd日");
+        if(!"".equals(title)) {
+            title = prefix+processName+"-"+user.getName()+"-"+sdf.format(new Date())+suffix;
+        }
+        
+        workflowService.startFlow("", "", new HashMap<String,Object>());
+        
+        return "success";
     }
 }
