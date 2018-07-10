@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head lang="zh">
+    <title>我的待办</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/plugin/jquery-easyui-1.5.5/themes/icon.css">
+    <link rel="stylesheet" href="/plugin/jquery-easyui-1.5.5/themes/gray/easyui.css">
+    <script type="text/javascript" src="/webjars/jquery/jquery.js"></script>
+    <script type="text/javascript" src="/plugin/jquery-easyui-1.5.5/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="/plugin/jquery-easyui-1.5.5/datagrid-filter.js"></script>
+    <script type="text/javascript" src="/plugin/jquery-easyui-1.5.5/locale/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="/js/my-wait.js"></script>
+    <style type="text/css">
+      .grid-height{
+        height: 100%;
+        width: 100%;
+      }
+      .toolbar td:nth-child(even) {
+        width: 100px;
+        padding-right: 20px;
+      }
+      .btn-group > button {
+        width: 100px;
+        margin: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="tb" class="toolbar">
+      <form action="">
+        <table>
+          <tr>
+            <td>所属流程：</td>
+            <td><input type="text" class="easyui-combobox" id="belong-flow" name="belong"></td>
+            <td>流水号：</td>
+            <td><input type="text" class="easyui-textbox" id="flow-id" name="flowId"></td>
+            <td>流程名称：</td>
+            <td><input type="text" class="easyui-textbox" id="flow-name" name="flowName"></td>
+            <td class="btn-group">
+              <button type="button" class="easyui-linkbutton" id="query">查询</button>
+              <button type="button" class="easyui-linkbutton" id="download">导出</button>
+            </td>
+          </tr>
+        </table>
+      </form>
+    </div>
+    <div class="grid-height">
+      <div id="my-wait-data" class="easyui-datagrid" toolbar="#tb">
+      
+      </div>
+    </div>
+  </body>
+</html>

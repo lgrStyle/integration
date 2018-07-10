@@ -60,9 +60,34 @@ public class WorkflowController {
         return "日程管理";
     }
     
-    @RequestMapping("/mywork")
-    public String mywork(){
+    @RequestMapping("/myWork")
+    public String myWork(){
         return "my-work";
+    }
+    
+    @RequestMapping("/myWait")
+    public String myWait(){
+        return "my-wait";
+    }
+    
+    @RequestMapping("/myDone")
+    public String myDone(){
+        return "my-done";
+    }
+    
+    @RequestMapping("/myAttention")
+    public String myAttention(){
+        return "my-attention";
+    }
+    
+    @RequestMapping("/myLookup")
+    public String myLookup(){
+        return "my-lookup";
+    }
+    
+    @RequestMapping("/myHang")
+    public String myHang(){
+        return "my-hang";
     }
     
     @RequestMapping("/creatework")
@@ -74,6 +99,8 @@ public class WorkflowController {
     public String history(){
         return "history-query";
     }
+    
+    
     
     @RequestMapping("/process-image")
     public ModelAndView processImage(String processDefinitionId, String processDefinitionKey, String taskId) {

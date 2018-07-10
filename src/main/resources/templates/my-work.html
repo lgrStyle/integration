@@ -20,19 +20,27 @@
     height: 100%;
   }
 </style>
+<script type="text/javascript">
+$(function(){
+	$('[role=presentation]').on('click',function(){
+		let menucode = $(this).attr('menucode');
+		$('#iframe-my-work').attr('src',menucode);
+	});
+})
+</script>
 </head>
 <body>
   <header>
     <ul class="nav nav-tabs ">
-     <li role="presentation" class="active" data-toggle="tab"><a href="javascript:">我的待办</a></li>
-     <li role="presentation" data-toggle="tab"><a href="javascript:">我已办结</a></li>
-     <li role="presentation" data-toggle="tab"><a href="javascript:">我的查阅</a></li>
-     <li role="presentation" data-toggle="tab"><a href="javascript:">我的关注</a></li>
-     <li role="presentation" data-toggle="tab"><a href="javascript:">挂起工作</a></li>
+      <li role="presentation" class="active" data-toggle="tab" menucode="/workflow/myWait"><a href="javascript:">我的待办</a></li>
+      <li role="presentation" data-toggle="tab" menucode="/workflow/myDone"><a href="javascript:">我已办结</a></li>
+      <li role="presentation" data-toggle="tab" menucode="/workflow/myLookup"><a href="javascript:">我的查阅</a></li>
+      <li role="presentation" data-toggle="tab" menucode="/workflow/myAttention"><a href="javascript:">我的关注</a></li>
+      <li role="presentation" data-toggle="tab" menucode="/workflow/myHang"><a href="javascript:">挂起工作</a></li>
     </ul>
   </header>
   <section>
-    <iframe src="/workflow/processList"></iframe>
+    <iframe id="iframe-my-work" src="/workflow/myWait"></iframe>
   </section>
 </body>
 </html>
