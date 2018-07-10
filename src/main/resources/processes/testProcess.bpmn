@@ -3,13 +3,13 @@
   <process id="testProcess" name="Test process" isExecutable="true">
     <startEvent id="startevent1" name="Start"></startEvent>
     <parallelGateway id="parallelgateway1" name="Parallel Gateway"></parallelGateway>
-    <userTask id="usertask1" name="并行任务1" activiti:assignee="${assignee1}"></userTask>
-    <userTask id="usertask2" name="并行任务2" activiti:assignee="${assignee2}"></userTask>
+    <userTask id="usertask1" name="并行任务1" activiti:assignee="${assignee}"></userTask>
+    <userTask id="usertask2" name="并行任务2" activiti:assignee="${assignee}"></userTask>
     <parallelGateway id="parallelgateway2" name="Parallel Gateway"></parallelGateway>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
     <endEvent id="endevent1" name="End"></endEvent>
-    <userTask id="usertask3" name="最后一步" activiti:assignee="${assignee4}"></userTask>
-    <userTask id="usertask4" name="回退处理" activiti:assignee="${assignee3}"></userTask>
+    <userTask id="usertask3" name="最后一步" activiti:assignee="${assignee}"></userTask>
+    <userTask id="usertask4" name="回退处理" activiti:assignee="${assignee}"></userTask>
     <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="parallelgateway1"></sequenceFlow>
     <sequenceFlow id="flow2" sourceRef="parallelgateway1" targetRef="usertask1"></sequenceFlow>
     <sequenceFlow id="flow3" sourceRef="parallelgateway1" targetRef="usertask2"></sequenceFlow>
@@ -82,14 +82,14 @@
         <omgdi:waypoint x="710.0" y="384.0"></omgdi:waypoint>
         <omgdi:waypoint x="710.0" y="334.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="100.0" x="720.0" y="361.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="24.0" x="720.0" y="361.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow7" id="BPMNEdge_flow7">
         <omgdi:waypoint x="710.0" y="424.0"></omgdi:waypoint>
         <omgdi:waypoint x="710.0" y="507.0"></omgdi:waypoint>
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds height="14.0" width="100.0" x="720.0" y="459.0"></omgdc:Bounds>
+          <omgdc:Bounds height="14.0" width="24.0" x="720.0" y="459.0"></omgdc:Bounds>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge bpmnElement="flow8" id="BPMNEdge_flow8">

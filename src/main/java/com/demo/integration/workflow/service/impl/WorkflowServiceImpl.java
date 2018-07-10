@@ -15,7 +15,6 @@ import org.activiti.engine.HistoryService;
 import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.ProcessEngineConfiguration;
 import org.activiti.engine.RepositoryService;
-import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.history.HistoricActivityInstance;
 import org.activiti.engine.repository.Deployment;
@@ -44,9 +43,6 @@ public class WorkflowServiceImpl implements WorkflowService{
     
     @Autowired
     private HistoryService historyService;
-    
-    @Autowired
-    private RuntimeService runtimeService;
     
     @Override
     public void deploy(InputStream in,String name) {
@@ -198,10 +194,4 @@ public class WorkflowServiceImpl implements WorkflowService{
         return highLightedFlows;
     }
 
-    
-    public String startFlow(String processDefinitionKey,String businessKey,Map<String,Object> variables) {
-        
-        runtimeService.startProcessInstanceByKey(processDefinitionKey, businessKey, variables);
-        return null;
-    }
 }

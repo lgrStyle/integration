@@ -5,13 +5,14 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.shiro.SecurityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,14 +22,20 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.demo.integration.login.entity.User;
+import com.demo.integration.workflow.service.OvertimeService;
 import com.demo.integration.workflow.service.WorkflowService;
 
 @Controller
 @RequestMapping("/workflow")
 public class WorkflowController {
     
+    private static final Logger logger = LoggerFactory.getLogger(WorkflowController.class);
+    
     @Autowired
     WorkflowService workflowService;
+    
+    @Autowired
+    OvertimeService overtimeService;
     
     @RequestMapping("/main")
     public String main() {
@@ -164,18 +171,27 @@ public class WorkflowController {
     @ResponseBody
     public String startFlow(HttpServletRequest request) {
         User user = (User)SecurityUtils.getSubject().getPrincipal();
-//        String processKey = request.getParameter("processKey");
+        String processKey = request.getParameter("processKey");
         String processName = request.getParameter("processName");
         String suffix = request.getParameter("suffix");
         String prefix = request.getParameter("prefix");
         String title = request.getParameter("title");
         SimpleDateFormat sdf = new SimpleDateFormat("MM月dd日");
-        if(!"".equals(title)) {
+        if("".equals(title)) {
             title = prefix+processName+"-"+user.getName()+"-"+sdf.format(new Date())+suffix;
         }
+        try {
+            switch(processKey) {
+            case "testProcess":{
+                overtimeService.startFlow(processKey, title, user);
+                break;
+            }
         
-        workflowService.startFlow("", "", new HashMap<String,Object>());
-        
+        }
+        }catch(Exception e) {
+            logger.error(e.toString());
+            return e.getMessage();
+        }
         return "success";
     }
 }

@@ -37,7 +37,8 @@ function doCreate(){
 		dataType: 'json',
 		async: true,
 		success: function(data,status,xhr){
-			debugger
+			
 		}
 	});
+	$("#title-modal").modal('hide');
 }

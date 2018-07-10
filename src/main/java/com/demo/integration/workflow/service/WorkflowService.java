@@ -17,6 +17,4 @@ public interface WorkflowService {
     
     InputStream getResourceById(String processDefinitionId);
     
-    String startFlow(String processDefinitionKey,String businessKey,Map<String,Object> variables);
-    
 }

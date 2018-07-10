@@ -2,8 +2,39 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.demo.integration.workflow.mapper.OvertimeMapper">
   
-  <insert id="insertData">
-  
+  <insert id="insertData" useGeneratedKeys="true" keyProperty="id" parameterType="com.demo.integration.workflow.entity.Overtime">
+    INSERT INTO workflow_overtime(
+	     id
+	    ,username
+	    ,start_time
+	    ,end_time
+	    ,type
+	    ,flow_id
+	    ,reason
+	    ,title
+	    ,status) 
+    VALUES(
+       #{id}
+      ,#{username}
+      ,#{startTime}
+      ,#{endTime}
+      ,#{type}
+      ,#{flowId}
+      ,#{reason}
+      ,#{title}
+      ,#{status}
+    )
   </insert>
+  
+  <update id="updateData" parameterType="com.demo.integration.workflow.entity.Overtime">
+    UPDATE workflow_overtime
+    SET start_time = #{startTime}
+       ,end_time = #{endTime}
+       ,type = #{type}
+       ,flow_id = #{flowId}
+       ,reason = #{reason}
+       ,status = #{status}
+    WHERE ID = #{id}   
+  </update>
   
 </mapper>
