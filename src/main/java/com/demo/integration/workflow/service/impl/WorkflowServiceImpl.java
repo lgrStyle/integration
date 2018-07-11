@@ -194,4 +194,9 @@ public class WorkflowServiceImpl implements WorkflowService{
         return highLightedFlows;
     }
 
+    public void myWaitWork() {
+        taskService.createTaskQuery().taskAssignee("").orderByTaskCreateTime().list();
+        taskService.createNativeTaskQuery().sql("").parameter("", "").list();
+    }
+    
 }
