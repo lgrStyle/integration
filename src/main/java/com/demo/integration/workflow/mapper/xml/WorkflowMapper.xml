@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demo.integration.workflow.mapper.WorkflowMapper">
+    <resultMap type="com.demo.integration.workflow.entity.WorkflowInfo" id="workflowInfoMap">
+        <result column="TASK_ID" property="taskId" />
+        <result column="EXECUTION_ID_" property="executionId" />
+        <result column="PROC_INST_ID_" property="processInstanceId" />
+        <result column="TASK_NAME" property="taskName" />
+        <result column="CREATE_TIME_" property="CreateTime" />
+        <result column="CLAIM_TIME_" property="ClaimTime" />
+        <result column="ID" property="id" />
+        <result column="TITLE" property="title" />
+        <result column="PROCESS_TYPE" property="processType" />
+        <result column="ORIGINATOR" property="originator" />
+        <result column="RECEIPT_TIME" property="receiptTime" />
+        <result column="COMPLETED_TIME" property="completedTime" />
+        <result column="STATUS" property="status" />
+        <result column="ATTACHMENT" property="attachment" />
+        <result column="OPERATION" property="operation" />
+    </resultMap>
+    
+    <select id="getMyWaitList" resultMap="workflowInfoMap">
+        SELECT 
+            T.ID_ AS TASK_ID
+            , T.EXECUTION_ID_
+            , T.PROC_INST_ID_
+            , T.NAME_  AS TASK_NAME
+            , W.ID 
+            , W.TITLE
+            , '加班申请' PROCESS_TYPE
+            , W.USERNAME AS ORIGINATOR 
+            , W.STATUS
+        FROM ACT_RU_TASK T
+        LEFT JOIN WORKFLOW_OVERTIME W
+        ON T.PROC_INST_ID_ = W.FLOW_ID
+        WHERE T.ASSIGNEE_ = #{username}
+    </select>
+</mapper>

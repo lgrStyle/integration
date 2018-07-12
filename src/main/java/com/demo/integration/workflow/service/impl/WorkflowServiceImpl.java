@@ -1,12 +1,12 @@
 package com.demo.integration.workflow.service.impl;
 
 import java.io.InputStream;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.zip.ZipInputStream;
 
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.FlowNode;
@@ -21,11 +21,15 @@ import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.task.Task;
 import org.activiti.image.ProcessDiagramGenerator;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.demo.integration.login.entity.User;
 import com.demo.integration.workflow.entity.ActivityTypeEnum;
+import com.demo.integration.workflow.entity.WorkflowInfo;
+import com.demo.integration.workflow.mapper.WorkflowMapper;
 import com.demo.integration.workflow.service.WorkflowService;
 
 @Service
@@ -44,15 +48,9 @@ public class WorkflowServiceImpl implements WorkflowService{
     @Autowired
     private HistoryService historyService;
     
-    @Override
-    public void deploy(InputStream in,String name) {
-        ZipInputStream zipInputStream = new ZipInputStream(in);
-        repositoryService.createDeployment()
-            .name(name)
-            .addZipInputStream(zipInputStream)
-            .deploy();
-    }
-
+    @Autowired
+    private WorkflowMapper workflowMapper;
+    
     @Override
     public void delete(String deploymentId,boolean cascade) {
         repositoryService.deleteDeployment(deploymentId, cascade);
@@ -193,10 +191,10 @@ public class WorkflowServiceImpl implements WorkflowService{
         
         return highLightedFlows;
     }
-
-    public void myWaitWork() {
-        taskService.createTaskQuery().taskAssignee("").orderByTaskCreateTime().list();
-        taskService.createNativeTaskQuery().sql("").parameter("", "").list();
+    
+    public List<WorkflowInfo> myWaitList() throws SQLException {
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
+        return workflowMapper.getMyWaitList(user);
     }
     
 }

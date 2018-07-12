@@ -3,13 +3,17 @@ package com.demo.integration.workflow.controller;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
+import java.util.zip.ZipInputStream;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.activiti.engine.RepositoryService;
 import org.apache.shiro.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +25,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.demo.integration.comom.entity.ResponseData;
 import com.demo.integration.login.entity.User;
+import com.demo.integration.workflow.entity.WorkflowInfo;
 import com.demo.integration.workflow.service.OvertimeService;
 import com.demo.integration.workflow.service.WorkflowService;
 
@@ -36,6 +42,9 @@ public class WorkflowController {
     
     @Autowired
     OvertimeService overtimeService;
+    
+    @Autowired
+    private RepositoryService repositoryService;
     
     @RequestMapping("/main")
     public String main() {
@@ -189,8 +198,21 @@ public class WorkflowController {
     }
     
     @RequestMapping("/deploy")
-    public String deploy(@RequestParam("deploymentFile") MultipartFile multipartFile, @RequestParam("deploymentName")String deploymentName) throws IOException{
-        workflowService.deploy(multipartFile.getInputStream(), deploymentName);
+    public String deploy(@RequestParam("deploymentFile") MultipartFile file, @RequestParam("deploymentName")String deploymentName) throws IOException{
+        String fileName = file.getOriginalFilename();
+        String extension = fileName.substring(fileName.lastIndexOf(".")+1, fileName.length());
+        if("zip".equals(extension) || "bar".equals(extension)) {
+            ZipInputStream zipInputStream = new ZipInputStream(file.getInputStream());
+            repositoryService.createDeployment()
+                .name(deploymentName)
+                .addZipInputStream(zipInputStream)
+                .deploy();
+        }else{
+            repositoryService.createDeployment()
+                .name(deploymentName)
+                .addInputStream(fileName, file.getInputStream())
+                .deploy();
+        }
         return "redirect:/workflow/processList";
     }
     
@@ -220,5 +242,15 @@ public class WorkflowController {
             return e.getMessage();
         }
         return "success";
+    }
+    
+    @RequestMapping("/myWaitList")
+    @ResponseBody
+    public Object myWaitList() throws SQLException {
+        List<WorkflowInfo> list = workflowService.myWaitList();
+        ResponseData responseData = new ResponseData();
+        responseData.setTotal(list.size());
+        responseData.setRows(list);
+        return responseData;
     }
 }
