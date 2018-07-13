@@ -13,6 +13,7 @@ public class WorkflowInfo implements Serializable{
     private String taskName;
     private Date CreateTime;
     private Date ClaimTime;
+    private String assignee ;
     private String id;
     private String title;
     private String processType;
@@ -113,7 +114,11 @@ public class WorkflowInfo implements Serializable{
     public void setOperation(String operation) {
         this.operation = operation;
     }
-    
-    
+    public String getAssignee() {
+        return assignee;
+    }
+    public void setAssignee(String assignee) {
+        this.assignee = assignee;
+    }
     
 }

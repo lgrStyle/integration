@@ -24,14 +24,14 @@ $(function(){
 			type : "get",
 			data : {"deploymentId":deploymentId,"cascade":cascade},
 			dataType : "html",
+			async: true,
 			success : function(data){
-				window.location.href = root+"/workflow/processList";
+				window.location.reload();
 			}
 		});
 	}
 	
 	$("#refresh").on("click",function(){
-//		window.location.href = root+"/workflow/processList";
 		window.location.reload();
 	});
 	

@@ -1,56 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
   <process id="leaveProcess" name="请假流程" isExecutable="true">
-    <startEvent id="startevent1" name="Start" activiti:initiator="applyUserId">
-      <extensionElements>
-        <activiti:formProperty id="startDate" name="请假开始日期" type="date" datePattern="yyyy-MM-dd" required="true"></activiti:formProperty>
-        <activiti:formProperty id="endDate" name="请假结束日期" type="date" datePattern="yyyy-MM-dd" required="true"></activiti:formProperty>
-        <activiti:formProperty id="reason" name="请假原因" type="string" required="true"></activiti:formProperty>
-      </extensionElements>
-    </startEvent>
-    <userTask id="usertask1" name="部门领导审批" activiti:candidateGroups="deptLeader">
-      <extensionElements>
-        <activiti:formProperty id="startDate" name="请假开始时间" type="date" expression="${startDate}" datePattern="yyyy-MM-dd" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="endDate" name="请假结束时间" type="date" expression="${endDate}" datePattern="yyyy-MM-dd" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="reason" name="请假原因" type="string" expression="${reason}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="deptLeaderApprove" name="审批意见" type="enum" required="true">
-          <activiti:value id="true" name="同意"></activiti:value>
-          <activiti:value id="false" name="拒绝"></activiti:value>
-        </activiti:formProperty>
-      </extensionElements>
-    </userTask>
+    <startEvent id="startevent1" name="Start" activiti:initiator="applyUserId" activiti:formKey="leave-start.html"></startEvent>
+    <userTask id="usertask1" name="部门领导审批" activiti:assignee="${assignee}"></userTask>
     <exclusiveGateway id="exclusivegateway1" name="Exclusive Gateway"></exclusiveGateway>
-    <userTask id="usertask2" name="人事审批" activiti:candidateGroups="hr">
-      <extensionElements>
-        <activiti:formProperty id="startDate" name="请假开始时间" type="date" expression="${startDate}" datePattern="yyyy-MM-dd" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="endDate" name="请假结束时间" type="date" expression="${endDate}" datePattern="yyyy-MM-dd" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="reason" name="请假原因" type="string" expression="${reason}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="hrApprove" name="审批意见" type="enum" required="true">
-          <activiti:value id="true" name="同意"></activiti:value>
-          <activiti:value id="false" name="拒绝"></activiti:value>
-        </activiti:formProperty>
-      </extensionElements>
-    </userTask>
-    <userTask id="usertask3" name="调整申请" activiti:assignee="${applyUserId}">
-      <extensionElements>
-        <activiti:formProperty id="startDate" name="请假开始时间" type="date" expression="${startDate}" datePattern="yyyy-MM-dd" required="true"></activiti:formProperty>
-        <activiti:formProperty id="endDate" name="请假结束时间" type="date" expression="${endDate}" datePattern="yyyy-MM-dd" required="true"></activiti:formProperty>
-        <activiti:formProperty id="reason" name="请假原因" type="string" expression="${reason}" required="true"></activiti:formProperty>
-        <activiti:formProperty id="reApply" name="重新申请" type="enum" required="true">
-          <activiti:value id="true" name="重新申请"></activiti:value>
-          <activiti:value id="false" name="取消申请"></activiti:value>
-        </activiti:formProperty>
-      </extensionElements>
-    </userTask>
+    <userTask id="usertask2" name="人事审批" activiti:assignee="${assignee}"></userTask>
+    <userTask id="usertask3" name="调整申请" activiti:assignee="${applyUserId}"></userTask>
     <exclusiveGateway id="exclusivegateway2" name="Exclusive Gateway"></exclusiveGateway>
-    <userTask id="usertask4" name="销假" activiti:assignee="${applyUserId}">
-      <extensionElements>
-        <activiti:formProperty id="startDate" name="请假开始时间" type="date" expression="${startDate}" datePattern="yyyy-MM-dd" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="endDate" name="请假结束时间" type="date" expression="${endDate}" datePattern="yyyy-MM-dd" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="reason" name="请假原因" type="string" expression="${reason}" writable="false"></activiti:formProperty>
-        <activiti:formProperty id="reportBackDate" name="销假日期" type="date" default="${endDate}" datePattern="yyyy-MM-dd" required="true"></activiti:formProperty>
-      </extensionElements>
-    </userTask>
+    <userTask id="usertask4" name="销假" activiti:assignee="${applyUserId}"></userTask>
     <endEvent id="endevent1" name="End"></endEvent>
     <exclusiveGateway id="exclusivegateway3" name="Exclusive Gateway"></exclusiveGateway>
     <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="usertask1"></sequenceFlow>

@@ -13,6 +13,7 @@ import java.util.zip.ZipInputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.activiti.engine.IdentityService;
 import org.activiti.engine.RepositoryService;
 import org.apache.shiro.SecurityUtils;
 import org.slf4j.Logger;
@@ -45,6 +46,9 @@ public class WorkflowController {
     
     @Autowired
     private RepositoryService repositoryService;
+    
+    @Autowired
+    private IdentityService identityService;
     
     @RequestMapping("/main")
     public String main() {
@@ -220,6 +224,7 @@ public class WorkflowController {
     @ResponseBody
     public String startFlow(HttpServletRequest request) {
         User user = (User)SecurityUtils.getSubject().getPrincipal();
+        identityService.setAuthenticatedUserId(user.getUsername());
         String processKey = request.getParameter("processKey");
         String processName = request.getParameter("processName");
         String suffix = request.getParameter("suffix");
@@ -232,6 +237,10 @@ public class WorkflowController {
         try {
             switch(processKey) {
             case "testProcess":{
+                overtimeService.startFlow(processKey, title, user);
+                break;
+            }
+            case "leaveProcess" : {
                 overtimeService.startFlow(processKey, title, user);
                 break;
             }
