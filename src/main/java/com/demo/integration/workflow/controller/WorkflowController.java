@@ -1,5 +1,6 @@
 package com.demo.integration.workflow.controller;
 
+import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -15,11 +16,16 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.activiti.engine.IdentityService;
 import org.activiti.engine.RepositoryService;
+import org.activiti.engine.TaskService;
+import org.activiti.engine.task.Attachment;
+import org.apache.commons.compress.utils.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -49,6 +55,9 @@ public class WorkflowController {
     
     @Autowired
     private IdentityService identityService;
+    
+    @Autowired
+    private TaskService taskService;
     
     @RequestMapping("/main")
     public String main() {
@@ -115,7 +124,7 @@ public class WorkflowController {
     
     
     
-    @RequestMapping("/process-image")
+    @RequestMapping("/processImage")
     public ModelAndView processImage(String processDefinitionId, String processDefinitionKey, String taskId) {
         ModelAndView mav = new ModelAndView("process-image");
         if(processDefinitionId != null) {
@@ -219,6 +228,52 @@ public class WorkflowController {
         }
         return "redirect:/workflow/processList";
     }
+    
+    @RequestMapping("/deleteTask")
+    public String deleteTask(String taskId) {
+        taskService.deleteTask(taskId, true);
+        return "redirect:/workflow/myWaitList";
+    }
+    
+    @RequestMapping("/upload/attachment")
+    @ResponseBody
+    public String newAttachment(@RequestParam("file") MultipartFile file,HttpServletRequest request) throws IOException {
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
+        identityService.setAuthenticatedUserId(user.getUsername());
+        String fileName = file.getOriginalFilename();
+        String extension = fileName.substring(fileName.lastIndexOf("."), fileName.length());
+        String attachmentType = file.getContentType() + ";" + extension;
+        String taskId = request.getParameter("taskId");
+        String processInstanceId = request.getParameter("processInstanceId");
+        String attachmentName = request.getParameter("attachmentName");
+        String attachmentDescription = request.getParameter("attachmentDescription");
+        taskService.createAttachment(attachmentType, taskId, processInstanceId, attachmentName, attachmentDescription, file.getInputStream());
+        return "success";
+    }
+    
+    @RequestMapping("/download/{attachmentId}")
+    public void getAttachment(@PathVariable("attachment") String attachmentId, HttpServletResponse response) throws IOException {
+        //查询附件对象
+        Attachment attachment = taskService.getAttachment(attachmentId);
+        //读取附件二进制流
+        InputStream attachmentContent = taskService.getAttachmentContent(attachmentId);
+        String contentType = StringUtils.substringBefore(attachment.getType(), ";") ;
+        response.addHeader("Content-Type", contentType + ";charset=UTF-8");
+        
+        String extension = StringUtils.substringAfter(attachment.getType(), ";");
+        String fileName = attachment.getName() + "." + extension;
+        response.setHeader("Content-Disposition", "attachment;filename=" + fileName);
+        
+        IOUtils.copy(new BufferedInputStream(attachmentContent), response.getOutputStream());
+    } 
+    
+    @RequestMapping("/delete/{attachmentId}")
+    @ResponseBody
+    public String delAttachent(@PathVariable("attachment") String attachmentId) {
+        taskService.deleteAttachment(attachmentId);
+        return "success";
+    }
+    
     
     @RequestMapping("/startFlow")
     @ResponseBody

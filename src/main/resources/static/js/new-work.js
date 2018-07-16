@@ -18,7 +18,7 @@ function createWork(key,name,type){
 }
 
 function viewGraph(key){
-	let url = "/workflow/process-image?processDefinitionKey="+key;
+	let url = "/workflow/processImage?processDefinitionKey="+key;
 	openFullWindow(url);
 }
 
