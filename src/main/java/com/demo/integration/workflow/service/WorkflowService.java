@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
-
+import com.demo.integration.login.entity.User;
 import com.demo.integration.workflow.entity.WorkflowInfo;
 
 
@@ -22,4 +22,6 @@ public interface WorkflowService {
     InputStream getResourceById(String processDefinitionId);
     
     List<WorkflowInfo> myWaitList() throws SQLException;
+    
+    void startFlow(WorkflowInfo workflowInfo,User user) throws Exception;
 }

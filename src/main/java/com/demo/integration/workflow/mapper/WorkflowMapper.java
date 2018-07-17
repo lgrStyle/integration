@@ -12,4 +12,8 @@ import com.demo.integration.workflow.entity.WorkflowInfo;
 public interface WorkflowMapper {
     
     List<WorkflowInfo> getMyWaitList(User user) throws SQLException;
+    
+    void insertWorkflow(WorkflowInfo workflowInfo) throws SQLException;
+    
+    void updateWorkflow(WorkflowInfo workflowInfo) throws SQLException;
 }

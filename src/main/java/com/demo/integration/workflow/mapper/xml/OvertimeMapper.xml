@@ -3,37 +3,14 @@
 <mapper namespace="com.demo.integration.workflow.mapper.OvertimeMapper">
   
   <insert id="insertData" useGeneratedKeys="true" keyProperty="id" parameterType="com.demo.integration.workflow.entity.Overtime">
-    INSERT INTO workflow_overtime(
-	     id
-	    ,username
-	    ,start_time
-	    ,end_time
-	    ,type
-	    ,flow_id
-	    ,reason
-	    ,title
-	    ,status) 
-    VALUES(
-       #{id}
-      ,#{username}
-      ,#{startTime}
-      ,#{endTime}
-      ,#{type}
-      ,#{flowId}
-      ,#{reason}
-      ,#{title}
-      ,#{status}
-    )
+    INSERT INTO workflow_overtime(CREATE_BY) VALUES(#{createBy})
   </insert>
   
   <update id="updateData" parameterType="com.demo.integration.workflow.entity.Overtime">
     UPDATE workflow_overtime
     SET start_time = #{startTime}
        ,end_time = #{endTime}
-       ,type = #{type}
-       ,flow_id = #{flowId}
        ,reason = #{reason}
-       ,status = #{status}
     WHERE ID = #{id}   
   </update>
   

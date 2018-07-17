@@ -3,6 +3,9 @@ package com.demo.integration.workflow.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class WorkflowInfo implements Serializable{
 
     private static final long serialVersionUID = 1L;
@@ -10,16 +13,17 @@ public class WorkflowInfo implements Serializable{
     private String taskId;
     private String executionId;
     private String processInstanceId;
+    private String businessId;
     private String taskName;
-    private Date CreateTime;
-    private Date ClaimTime;
-    private String assignee ;
-    private String id;
+    private String assignee;
     private String title;
-    private String processType;
-    private String originator;
-    private String receiptTime;
-    private String completedTime;
+    private String processKey;
+    private String processName;
+    private String createBy;
+    private Date createTime;
+    private Date claimTime;
+    private Date receiptTime;
+    private Date completedTime;
     private String status;
     private String attachment;
     private String operation;
@@ -48,53 +52,11 @@ public class WorkflowInfo implements Serializable{
     public void setTaskName(String taskName) {
         this.taskName = taskName;
     }
-    public Date getCreateTime() {
-        return CreateTime;
-    }
-    public void setCreateTime(Date createTime) {
-        CreateTime = createTime;
-    }
-    public Date getClaimTime() {
-        return ClaimTime;
-    }
-    public void setClaimTime(Date claimTime) {
-        ClaimTime = claimTime;
-    }
-    public String getId() {
-        return id;
-    }
-    public void setId(String id) {
-        this.id = id;
-    }
     public String getTitle() {
         return title;
     }
     public void setTitle(String title) {
         this.title = title;
-    }
-    public String getProcessType() {
-        return processType;
-    }
-    public void setProcessType(String processType) {
-        this.processType = processType;
-    }
-    public String getOriginator() {
-        return originator;
-    }
-    public void setOriginator(String originator) {
-        this.originator = originator;
-    }
-    public String getReceiptTime() {
-        return receiptTime;
-    }
-    public void setReceiptTime(String receiptTime) {
-        this.receiptTime = receiptTime;
-    }
-    public String getCompletedTime() {
-        return completedTime;
-    }
-    public void setCompletedTime(String completedTime) {
-        this.completedTime = completedTime;
     }
     public String getStatus() {
         return status;
@@ -119,6 +81,54 @@ public class WorkflowInfo implements Serializable{
     }
     public void setAssignee(String assignee) {
         this.assignee = assignee;
+    }
+    public Date getCreateTime() {
+        return createTime;
+    }
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+    public Date getClaimTime() {
+        return claimTime;
+    }
+    public void setClaimTime(Date claimTime) {
+        this.claimTime = claimTime;
+    }
+    public String getBusinessId() {
+        return businessId;
+    }
+    public void setBusinessId(String businessId) {
+        this.businessId = businessId;
+    }
+    public String getCreateBy() {
+        return createBy;
+    }
+    public void setCreateBy(String createBy) {
+        this.createBy = createBy;
+    }
+    public Date getReceiptTime() {
+        return receiptTime;
+    }
+    public void setReceiptTime(Date receiptTime) {
+        this.receiptTime = receiptTime;
+    }
+    public Date getCompletedTime() {
+        return completedTime;
+    }
+    public void setCompletedTime(Date completedTime) {
+        this.completedTime = completedTime;
+    }
+    public String getProcessKey() {
+        return processKey;
+    }
+    public void setProcessKey(String processKey) {
+        this.processKey = processKey;
+    }
+    public String getProcessName() {
+        return processName;
+    }
+    public void setProcessName(String processName) {
+        this.processName = processName;
     }
     
 }

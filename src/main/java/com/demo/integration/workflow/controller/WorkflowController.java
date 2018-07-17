@@ -289,21 +289,15 @@ public class WorkflowController {
         if("".equals(title)) {
             title = prefix+processName+"-"+user.getName()+"-"+sdf.format(new Date())+suffix;
         }
+        WorkflowInfo workflowInfo = new WorkflowInfo();
+        workflowInfo.setProcessKey(processKey);
+        workflowInfo.setProcessName(processName);
+        workflowInfo.setTitle(title);
         try {
-            switch(processKey) {
-            case "testProcess":{
-                overtimeService.startFlow(processKey, title, user);
-                break;
-            }
-            case "leaveProcess" : {
-                overtimeService.startFlow(processKey, title, user);
-                break;
-            }
-        
-        }
-        }catch(Exception e) {
-            logger.error(e.toString());
-            return e.getMessage();
+            workflowService.startFlow(workflowInfo, user);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            e.printStackTrace();
         }
         return "success";
     }

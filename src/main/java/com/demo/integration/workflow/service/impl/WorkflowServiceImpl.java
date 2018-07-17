@@ -15,10 +15,12 @@ import org.activiti.engine.HistoryService;
 import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.ProcessEngineConfiguration;
 import org.activiti.engine.RepositoryService;
+import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.history.HistoricActivityInstance;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.ProcessDefinition;
+import org.activiti.engine.runtime.ProcessInstance;
 import org.activiti.engine.task.Task;
 import org.activiti.image.ProcessDiagramGenerator;
 import org.apache.shiro.SecurityUtils;
@@ -28,7 +30,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.demo.integration.login.entity.User;
 import com.demo.integration.workflow.entity.ActivityTypeEnum;
+import com.demo.integration.workflow.entity.Overtime;
 import com.demo.integration.workflow.entity.WorkflowInfo;
+import com.demo.integration.workflow.mapper.OvertimeMapper;
 import com.demo.integration.workflow.mapper.WorkflowMapper;
 import com.demo.integration.workflow.service.WorkflowService;
 
@@ -49,7 +53,13 @@ public class WorkflowServiceImpl implements WorkflowService{
     private HistoryService historyService;
     
     @Autowired
+    private RuntimeService runtimeService;
+    
+    @Autowired
     private WorkflowMapper workflowMapper;
+    
+    @Autowired
+    private OvertimeMapper overtimeMapper;
     
     @Override
     public void delete(String deploymentId,boolean cascade) {
@@ -195,6 +205,38 @@ public class WorkflowServiceImpl implements WorkflowService{
     public List<WorkflowInfo> myWaitList() throws SQLException {
         User user = (User) SecurityUtils.getSubject().getPrincipal();
         return workflowMapper.getMyWaitList(user);
+    }
+
+    @Override
+    @Transactional
+    public void startFlow(WorkflowInfo workflowInfo, User user) throws Exception {
+        String processKey = workflowInfo.getProcessKey();
+        Map<String,Object> variables = new HashMap<String,Object>();
+        variables.put("assignee", user.getUsername());
+        ProcessInstance pi = runtimeService.startProcessInstanceByKey(processKey, variables);
+        String businessId = "";
+        switch(processKey) {
+            case "testProcess":{
+                businessId = insertOvertime(user);
+                break;
+            }
+            case "leaveProcess":{
+                businessId = insertOvertime(user);
+                break;
+            }
+        }
+        workflowInfo.setProcessInstanceId(pi.getId());
+        workflowInfo.setBusinessId(businessId);
+        workflowInfo.setStatus("执行中");
+        workflowInfo.setCreateBy(user.getUsername());
+        workflowMapper.insertWorkflow(workflowInfo);
+    }
+    
+    public String insertOvertime(User user) throws SQLException {
+        Overtime overtime = new Overtime();
+        overtime.setCreateBy(user.getUsername());
+        overtimeMapper.insertData(overtime);
+        return overtime.getId().toString();
     }
     
 }

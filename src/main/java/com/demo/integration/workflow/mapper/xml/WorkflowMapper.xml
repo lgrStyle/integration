@@ -9,10 +9,11 @@
         <result column="CREATE_TIME_" property="createTime" />
         <result column="CLAIM_TIME_" property="claimTime" />
         <result column="ASSIGNEE_" property="assignee"/>
-        <result column="ID" property="id" />
+        <result column="BUSINESS_ID" property="businessId" />
         <result column="TITLE" property="title" />
-        <result column="PROCESS_TYPE" property="processType" />
-        <result column="ORIGINATOR" property="originator" />
+        <result column="PROCESS_KEY" property="processKey" />
+        <result column="PROCESS_NAME" property="processName" />
+        <result column="CREATE_BY" property="createBy" />
         <result column="RECEIPT_TIME" property="receiptTime" />
         <result column="COMPLETED_TIME" property="completedTime" />
         <result column="STATUS" property="status" />
@@ -28,13 +29,15 @@
             , T.NAME_  AS TASK_NAME
             , T.CREATE_TIME_ AS RECEIPT_TIME
             , T.ASSIGNEE_
-            , W.ID 
+            , W.BUSINESS_ID 
             , W.TITLE
-            , W.USERNAME AS ORIGINATOR 
+            , W.CREATE_BY 
             , W.STATUS
+            , W.PROCESS_KEY
+            , W.PROCESS_NAME
         FROM ACT_RU_TASK T
-        LEFT JOIN WORKFLOW_OVERTIME W
-        ON T.PROC_INST_ID_ = W.FLOW_ID
+        LEFT JOIN WORKFLOW_INFO W
+        ON T.PROC_INST_ID_ = W.PROC_INST_ID
         LEFT JOIN ACT_RU_IDENTITYLINK I
         ON I.TASK_ID_ = T.ID_
         WHERE T.ASSIGNEE_ = #{username}
@@ -43,4 +46,41 @@
               WHERE U.USERNAME = #{username} AND U.ID = UR.USER_ID AND UR.ROLE_ID = R.ID))) 
         ORDER BY T.CREATE_TIME_ DESC
     </select>
+    
+    <insert id="insertWorkflow">
+        INSERT INTO workflow_info(
+            PROC_INST_ID
+            ,BUSINESS_ID
+            ,TITLE
+            ,PROCESS_KEY
+            ,PROCESS_NAME
+            ,STATUS
+            ,CREATE_BY
+            ,CREATE_TIME
+        ) VALUES(
+            #{processInstanceId}
+            ,#{businessId}
+            ,#{title}
+            ,#{processKey}
+            ,#{processName}
+            ,#{status}
+            ,#{createBy}
+            ,NOW()
+        )
+        
+    </insert>
+    
+    <update id="updateWorkflow">
+        UPDATE workflow_info
+        <set>
+            <if test="status != null">
+                STATUS = #{status}
+            </if>
+            <if test="completedTime != null">
+                ,COMPLETED_TIME = #{completedTime}
+            </if>
+        </set>
+        WHERE PROC_INST_ID = #{processInstanceId}
+    </update>
+    
 </mapper>
