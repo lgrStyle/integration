@@ -44,22 +44,22 @@
       <table>
         <tr>
           <td>流水号：</td>
-          <td><input type="text" name="flow-id" id="flow-id" class="easyui-textbox"></td>
+          <td><input type="text" name="processInstanceId" id="processInstanceId" class="easyui-textbox"></td>
           <td>流程标题：</td>
-          <td><input type="text" name="flow-title" id="flow-title" class="easyui-textbox"></td>
+          <td><input type="text" name="title" id="title" class="easyui-textbox"></td>
           <td>日期范围：</td>
           <td>
-            <input type="text" name="date-begin" id="date-begin" class="easyui-datebox" data-options="editable:false">
+            <input type="text" name="createTime" id="createTime" class="easyui-datebox" data-options="editable:false">
             <span>至：</span> 
-            <input type="text" name="date-end" id="date-end" class="easyui-datebox" data-options="editable:false">        
+            <input type="text" name="completedTime" id="completedTime" class="easyui-datebox" data-options="editable:false">        
           </td>
         </tr>
         <tr>
           <td>所属流程：</td>
-          <td><select class="easyui-combobox" data-options="editable:false,width:120"></select></td>
+          <td><select class="easyui-combobox" id="processKey"  name="processKey" data-options="editable:false,width:120"></select></td>
           <td>查询范围：</td>
           <td>
-            <select class="easyui-combobox" data-options="editable:false,width:120">
+            <select class="easyui-combobox" id="scope"  name="scope" data-options="editable:false,width:120">
               <option>我发起的</option>
               <option>我经办的</option>
               <option>我管理的</option>
@@ -69,7 +69,7 @@
           </td>
           <td>流程状态：</td>
           <td>
-            <select class="easyui-combobox" data-options="editable:false,width:120">
+            <select class="easyui-combobox" id="status"  name="status" data-options="editable:false,width:120">
               <option>所有状态</option>
               <option>执行中</option>
               <option>已结束</option>
