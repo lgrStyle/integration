@@ -23,5 +23,9 @@ public interface WorkflowService {
     
     List<WorkflowInfo> myWaitList() throws SQLException;
     
+    List<WorkflowInfo> myDoneList() throws SQLException;
+    
+    List<WorkflowInfo> historyList(WorkflowInfo workflowInfo) throws SQLException;
+    
     void startFlow(WorkflowInfo workflowInfo,User user) throws Exception;
 }

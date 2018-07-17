@@ -47,6 +47,58 @@
         ORDER BY T.CREATE_TIME_ DESC
     </select>
     
+    <select id="getMyDoneList" resultMap="workflowInfoMap">
+        SELECT W.PROC_INST_ID AS PROC_INST_ID_
+            , W.BUSINESS_ID 
+            , W.TITLE
+            , W.CREATE_BY 
+            , W.COMPLETED_TIME
+            , W.STATUS
+            , W.PROCESS_KEY
+            , W.PROCESS_NAME
+            , T.NAME_  AS TASK_NAME
+        FROM WORKFLOW_INFO W,ACT_HI_TASKINST T
+        WHERE W.PROC_INST_ID = T.PROC_INST_ID_
+        AND W.STATUS = '已结束'
+        AND (T.OWNER_ = #{username} OR T.ASSIGNEE_ = #{username})
+    </select>
+    
+    <select id="getHistoryList" resultMap="workflowInfoMap">
+        SELECT W.PROC_INST_ID PROC_INST_ID_
+            , W.BUSINESS_ID 
+            , W.TITLE
+            , W.CREATE_BY 
+            , W.CREATE_TIME CREATE_TIME_
+            , W.COMPLETED_TIME
+            , W.STATUS
+            , W.PROCESS_KEY
+            , W.PROCESS_NAME
+        FROM WORKFLOW_INFO W
+        <where>
+	        <if test="workflowInfo.processInstanceId != null and workflowInfo.processInstanceId != '' ">
+	            AND W.PROC_INST_ID = #{workflowInfo.processInstanceId}
+	        </if>
+	        <if test="workflowInfo.title != null and workflowInfo.title != '' ">
+	            AND W.TITLE = #{workflowInfo.title}
+	        </if>
+	        <if test="workflowInfo.processKey != null and workflowInfo.processKey != '' ">
+	            AND W.PROCESS_KEY = #{workflowInfo.processKey}
+	        </if>
+	        <if test="workflowInfo.status != null and workflowInfo.status != '' ">
+	            AND W.STATUS = #{workflowInfo.status}
+	        </if>
+	        <if test="workflowInfo.createTime != null and workflowInfo.completedTime == null ">
+	            AND W.CREATE_TIME <![CDATA[<=]]>  #{workflowInfo.createTime} 
+	        </if>
+	        <if test="workflowInfo.createTime == null and workflowInfo.completedTime != null ">
+	            AND W.CREATE_TIME >= #{workflowInfo.completedTime} 
+	        </if>
+	        <if test="workflowInfo.createTime != null and workflowInfo.completedTime != null ">
+	            AND W.CREATE_TIME BETWEEN #{workflowInfo.createTime} AND #{workflowInfo.completedTime}
+	        </if>
+        </where>
+    </select>
+    
     <insert id="insertWorkflow">
         INSERT INTO workflow_info(
             PROC_INST_ID

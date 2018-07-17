@@ -27,6 +27,7 @@ public class WorkflowInfo implements Serializable{
     private String status;
     private String attachment;
     private String operation;
+    private String scope;
     
     public String getTaskId() {
         return taskId;
@@ -129,6 +130,12 @@ public class WorkflowInfo implements Serializable{
     }
     public void setProcessName(String processName) {
         this.processName = processName;
+    }
+    public String getScope() {
+        return scope;
+    }
+    public void setScope(String scope) {
+        this.scope = scope;
     }
     
 }

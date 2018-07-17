@@ -202,9 +202,22 @@ public class WorkflowServiceImpl implements WorkflowService{
         return highLightedFlows;
     }
     
+    @Override
     public List<WorkflowInfo> myWaitList() throws SQLException {
         User user = (User) SecurityUtils.getSubject().getPrincipal();
         return workflowMapper.getMyWaitList(user);
+    }
+    
+    @Override
+    public List<WorkflowInfo> myDoneList() throws SQLException {
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
+        return workflowMapper.getMyDoneList(user);
+    }
+
+    @Override
+    public List<WorkflowInfo> historyList(WorkflowInfo workflowInfo) throws SQLException {
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
+        return workflowMapper.getHistoryList(workflowInfo, user);
     }
 
     @Override
@@ -238,5 +251,5 @@ public class WorkflowServiceImpl implements WorkflowService{
         overtimeMapper.insertData(overtime);
         return overtime.getId().toString();
     }
-    
+
 }

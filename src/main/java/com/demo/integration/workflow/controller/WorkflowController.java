@@ -311,4 +311,24 @@ public class WorkflowController {
         responseData.setRows(list);
         return responseData;
     }
+    
+    @RequestMapping("/myDoneList")
+    @ResponseBody
+    public Object myDoneList() throws SQLException{
+        List<WorkflowInfo> list = workflowService.myDoneList();
+        ResponseData responseData = new ResponseData();
+        responseData.setTotal(list.size());
+        responseData.setRows(list);
+        return responseData;
+    }
+    
+    @RequestMapping("/historyList")
+    @ResponseBody
+    public Object historyList(WorkflowInfo workflowInfo) throws SQLException{
+        List<WorkflowInfo> list = workflowService.historyList(workflowInfo);
+        ResponseData responseData = new ResponseData();
+        responseData.setTotal(list.size());
+        responseData.setRows(list);
+        return responseData;
+    }
 }
