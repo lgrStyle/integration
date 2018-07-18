@@ -2,6 +2,7 @@ package com.demo.integration.workflow.service;
 
 import java.io.InputStream;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -28,4 +29,6 @@ public interface WorkflowService {
     List<WorkflowInfo> historyList(WorkflowInfo workflowInfo) throws SQLException;
     
     void startFlow(WorkflowInfo workflowInfo,User user) throws Exception;
+
+    void changeState(String state, String processDefinitionId, boolean cascade, Date date);
 }

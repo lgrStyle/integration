@@ -18,6 +18,36 @@ $(function(){
 		delDeployment(deploymentId,cascade);
 	});
 	
+	$('.activeDeploy').on('click',function(){
+		let cascade = false;
+		let processDefinitionId = $(this).parent("td").prevAll("#processDefinitionId").children('a').text();
+		$.ajax({
+			url : "/workflow/changeState/active",
+			type : "get",
+			data : {"processDefinitionId":processDefinitionId,"cascade":cascade},
+			dataType : "html",
+			async: true,
+			success : function(data){
+				window.location.reload();
+			}
+		});
+	})
+	
+	$('.suspendDeploy').on('click',function(){
+		let cascade = false;
+		let processDefinitionId = $(this).parent("td").prevAll("#processDefinitionId").children('a').text();
+		$.ajax({
+			url : "/workflow/changeState/suspend",
+			type : "get",
+			data : {"processDefinitionId":processDefinitionId,"cascade":cascade},
+			dataType : "html",
+			async: true,
+			success : function(data){
+				window.location.reload();
+			}
+		});
+	})
+	
 	function delDeployment(deploymentId,cascade){
 		$.ajax({
 			url : "/workflow/deleteDeploy",

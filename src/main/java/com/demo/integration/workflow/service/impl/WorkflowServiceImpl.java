@@ -3,6 +3,7 @@ package com.demo.integration.workflow.service.impl;
 import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -12,6 +13,7 @@ import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.FlowNode;
 import org.activiti.bpmn.model.SequenceFlow;
 import org.activiti.engine.HistoryService;
+import org.activiti.engine.ManagementService;
 import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.ProcessEngineConfiguration;
 import org.activiti.engine.RepositoryService;
@@ -55,6 +57,10 @@ public class WorkflowServiceImpl implements WorkflowService{
     @Autowired
     private RuntimeService runtimeService;
     
+    @SuppressWarnings("unused")
+    @Autowired
+    private ManagementService managementService;
+    
     @Autowired
     private WorkflowMapper workflowMapper;
     
@@ -74,6 +80,15 @@ public class WorkflowServiceImpl implements WorkflowService{
         map.put("deployment", deploymentList);
         map.put("processDefinition", processDefinitionList);
         return map;
+    }
+    
+    @Override
+    public void changeState(String state,String processDefinitionId,boolean cascade,Date date) {
+        if("active".equals(state)) {
+            repositoryService.activateProcessDefinitionById(processDefinitionId, cascade, date);
+        }else if("suspend".equals(state)) {
+            repositoryService.suspendProcessDefinitionById(processDefinitionId, cascade, date);
+        }
     }
     
     @Override

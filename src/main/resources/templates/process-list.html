@@ -66,23 +66,35 @@
 	                         <th>版本号</th>
 	                         <th>XML资源名称</th>
 	                         <th>图片资源名称</th>
+                             <th>状态</th>
 	                         <th>操作</th>
 	                     </tr>
 	                 </thead>
 	                 <tbody>
 	                     <tr th:each="pd : ${processDefinition}">
-	                         <td><a class="viewImage" href="javascript:" th:text="${pd.id}"></a></td>
+	                         <td id="processDefinitionId"><a class="viewImage" href="javascript:" th:text="${pd.id}"></a></td>
 	                         <td th:text="${pd.deploymentId}" class="deploymentId"></td>
 	                         <td th:text="${pd.name}"></td>
 	                         <td th:text="${pd.key}"></td>
 	                         <td th:text="${pd.version}"></td>
 	                         <td th:text="${pd.resourceName}"></td>
 	                         <td th:text="${pd.diagramResourceName}"></td>
-	                         <td>
+                             <td th:if="${pd.suspensionState} == 2">挂起</td>
+                             <td th:if="${pd.suspensionState} == 1">正常</td>
+	                         <td th:if="${pd.suspensionState} == 2">
+                                 <a class="activeDeploy" href="javascript:">激活</a>
+                                 &nbsp;&nbsp;
 	                             <a class="deleteDeploy" href="javascript:">删除</a>
 	                             &nbsp;&nbsp;
 	                             <a class="completeDelete" href="javascript:">彻底删除</a>
 	                         </td>
+                             <td th:if="${pd.suspensionState} == 1">
+                                 <a class="suspendDeploy" href="javascript:">挂起</a>
+                                 &nbsp;&nbsp;
+                                 <a class="deleteDeploy" href="javascript:">删除</a>
+                                 &nbsp;&nbsp;
+                                 <a class="completeDelete" href="javascript:">彻底删除</a>
+                             </td>
 	                     </tr>
 	                 </tbody>
 	             </table>

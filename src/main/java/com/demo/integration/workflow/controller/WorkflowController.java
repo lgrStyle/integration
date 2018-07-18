@@ -24,7 +24,10 @@ import org.apache.shiro.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -122,7 +125,15 @@ public class WorkflowController {
         return "history-query";
     }
     
+    @RequestMapping("/processManage")
+    public String processManage() {
+        return "process-manage";
+    }
     
+    @RequestMapping("/processJob")
+    public String processJob(){
+        return "process-job";
+    }
     
     @RequestMapping("/processImage")
     public ModelAndView processImage(String processDefinitionId, String processDefinitionKey, String taskId) {
@@ -208,6 +219,15 @@ public class WorkflowController {
         Map<String,Object> map = workflowService.getDeployment();
         ModelAndView mav = new ModelAndView("/process-list",map);
         return mav;
+    }
+    
+    @RequestMapping("/changeState/{state}")
+    public String changeState(@PathVariable("state")String state,
+            @RequestParam("processDefinitionId") String processDefinitionId,
+            @RequestParam(value = "cascade", required =false) boolean cascade,
+            @RequestParam(value = "date", required =false) Date date) {
+        workflowService.changeState(state, processDefinitionId, cascade, date);
+        return "redirect:/workflow/processList";
     }
     
     @RequestMapping("/deploy")
@@ -304,7 +324,7 @@ public class WorkflowController {
     
     @RequestMapping("/myWaitList")
     @ResponseBody
-    public Object myWaitList() throws SQLException {
+    public Object myWaitList(WorkflowInfo workflowInfo) throws SQLException {
         List<WorkflowInfo> list = workflowService.myWaitList();
         ResponseData responseData = new ResponseData();
         responseData.setTotal(list.size());
@@ -314,7 +334,7 @@ public class WorkflowController {
     
     @RequestMapping("/myDoneList")
     @ResponseBody
-    public Object myDoneList() throws SQLException{
+    public Object myDoneList(WorkflowInfo workflowInfo) throws SQLException{
         List<WorkflowInfo> list = workflowService.myDoneList();
         ResponseData responseData = new ResponseData();
         responseData.setTotal(list.size());
@@ -330,5 +350,12 @@ public class WorkflowController {
         responseData.setTotal(list.size());
         responseData.setRows(list);
         return responseData;
+    }
+    
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        dateFormat.setLenient(false);
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
     }
 }

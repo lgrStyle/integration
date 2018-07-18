@@ -1,4 +1,14 @@
 $(function(){
+	
+	$('#query').on('click',function(){
+		let param = {
+			'processKey' : $('#processKey').val(),
+			'processInstanceId' : $('#processInstanceId').val(),
+			'processName' : $('#processName').val(),
+		};
+		$('#my-done-data').datagrid('reload',param);
+	});
+	
 	var columns = [[
 		{title:'流水号',field:'processInstanceId',width:80,align:'center',sortable:true},
 	    {title:'工作名称 ',field:'title',width:200,align:'center',sortable:true},
