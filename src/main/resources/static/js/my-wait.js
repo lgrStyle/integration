@@ -72,6 +72,8 @@ $(function(){
 		onClickCell: function(index,field,value){
 			if(field == 'title'){
 				let data = $myWaitData.datagrid('getSelected');
+				let url = `/workflow/`;
+				openFullWindow(url);
 			}else if(field == 'taskName'){
 				$myWaitData.datagrid('selectRow',index);
 				let data = $myWaitData.datagrid('getSelected');

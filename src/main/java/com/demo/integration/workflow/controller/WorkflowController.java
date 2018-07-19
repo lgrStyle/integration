@@ -135,6 +135,16 @@ public class WorkflowController {
         return "process-job";
     }
     
+    @RequestMapping("/processForm")
+    public String processForm() {
+        return "leave-form";
+    }
+    
+    @RequestMapping("/processPrint")
+    public String processPrint() {
+        return "leave-print";
+    }
+    
     @RequestMapping("/processImage")
     public ModelAndView processImage(String processDefinitionId, String processDefinitionKey, String taskId) {
         ModelAndView mav = new ModelAndView("process-image");
