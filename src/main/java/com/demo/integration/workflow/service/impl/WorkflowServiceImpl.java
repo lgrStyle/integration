@@ -20,6 +20,7 @@ import org.activiti.engine.RepositoryService;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.history.HistoricActivityInstance;
+import org.activiti.engine.history.HistoricProcessInstance;
 import org.activiti.engine.repository.Deployment;
 import org.activiti.engine.repository.ProcessDefinition;
 import org.activiti.engine.runtime.ProcessInstance;
@@ -258,6 +259,25 @@ public class WorkflowServiceImpl implements WorkflowService{
         workflowInfo.setStatus("执行中");
         workflowInfo.setCreateBy(user.getUsername());
         workflowMapper.insertWorkflow(workflowInfo);
+    }
+    
+    @Override
+    public void completeTask(String processInstanceId, String taskId) throws SQLException {
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
+        Map<String,Object> variables = new HashMap<String,Object>();
+        variables.put("assignee", user.getUsername());
+        taskService.complete(taskId, variables);
+        HistoricProcessInstance hpi =
+        historyService.createHistoricProcessInstanceQuery()
+            .processInstanceId(processInstanceId)
+            .finished()
+            .singleResult();
+        if(hpi != null) {
+            WorkflowInfo workflowInfo = new WorkflowInfo();
+            workflowInfo.setStatus("已结束");
+            workflowInfo.setCompletedTime(hpi.getEndTime());
+            workflowMapper.updateWorkflow(workflowInfo);
+        }
     }
     
     public String insertOvertime(User user) throws SQLException {

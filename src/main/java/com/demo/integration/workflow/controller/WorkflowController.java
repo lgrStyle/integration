@@ -136,18 +136,19 @@ public class WorkflowController {
     }
     
     @RequestMapping("/processForm")
-    public ModelAndView processForm(String processInstanceId, String businessId) {
+    public ModelAndView processForm(String processInstanceId, String taskId, String processKey) {
         ModelAndView mav = new ModelAndView("process-form");
         mav.addObject("processInstanceId", processInstanceId);
-        mav.addObject("businessId", businessId);
+        mav.addObject("taskId", taskId);
+        mav.addObject("processKey", processKey);
         return mav;
     }
     
     @RequestMapping("/processPrint")
-    public ModelAndView processPrint(String processInstanceId, String businessId) {
+    public ModelAndView processPrint(String processInstanceId, String processKey) {
         ModelAndView mav = new ModelAndView("process-print");
         mav.addObject("processInstanceId", processInstanceId);
-        mav.addObject("businessId", businessId);
+        mav.addObject("processKey", processKey);
         return mav;
     }
     
@@ -338,9 +339,23 @@ public class WorkflowController {
         return "success";
     }
     
+    @RequestMapping("/completeTask")
+    @ResponseBody
+    public ResponseData completeTask(String processInstanceId, String taskId, String processKey) {
+        ResponseData responseData = new ResponseData();
+        try {
+            workflowService.completeTask(processInstanceId, taskId);
+        } catch (Exception e) {
+            responseData.setMessage(e.getMessage());
+            responseData.setState("error");
+            logger.error(e.getMessage());
+        }
+        return responseData;
+    }
+    
     @RequestMapping("/myWaitList")
     @ResponseBody
-    public Object myWaitList(WorkflowInfo workflowInfo) throws SQLException {
+    public ResponseData myWaitList(WorkflowInfo workflowInfo) throws SQLException {
         List<WorkflowInfo> list = workflowService.myWaitList();
         ResponseData responseData = new ResponseData();
         responseData.setTotal(list.size());

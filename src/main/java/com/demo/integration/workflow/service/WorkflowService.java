@@ -31,4 +31,6 @@ public interface WorkflowService {
     void startFlow(WorkflowInfo workflowInfo,User user) throws Exception;
 
     void changeState(String state, String processDefinitionId, boolean cascade, Date date);
+
+    void completeTask(String processInstanceId, String taskId) throws SQLException;
 }

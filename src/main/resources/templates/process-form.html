@@ -22,6 +22,11 @@
                 <option>紧急</option>
             </select>
         </div>
+        <div>
+            <span class="display-none" id="processInstanceId" th:text="${processInstanceId}"></span>
+            <span class="display-none" id="taskId" th:text="${taskId}"></span>
+            <span class="display-none" id="processKey" th:text="${processKey}"></span>
+        </div>
     </header>
     <section>
         <aside>
@@ -29,8 +34,8 @@
                 <ul class="menu menu-0">
                     <li class="on"><span class="glyphicon glyphicon-list-alt"></span><a href="javascript:void(0);">表单信息</a></li>
                     <li><span class="glyphicon glyphicon-tag"></span><a href="javascript:void(0);">公共附件</a></li>
-                    <li><span class="glyphicon glyphicon-tag"></span><a href="javascript:void(0);">会签意见</a></li>
-                    <li><span class="glyphicon glyphicon-tag"></span><a href="javascript:void(0);">子流程</a></li>
+                    <li><span class="glyphicon glyphicon-comment"></span><a href="javascript:void(0);">会签意见</a></li>
+                    <li><span class="glyphicon glyphicon-tasks"></span><a href="javascript:void(0);">子流程</a></li>
                     <li><span class="glyphicon glyphicon-flag"></span><a href="javascript:void(0);">流程图</a></li>
                 </ul>
             </div>

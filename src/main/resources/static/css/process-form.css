@@ -21,6 +21,7 @@ header .title {
 }
 
 section {
+	position: relative;
 	width: 100%;
 	height: calc(100% - 82px);
 	background-color: #fff;
@@ -30,7 +31,7 @@ section>aside {
 	float: left;
 	height: 100%;
 	width: 160px;
-	background-color: #eee;
+	background-color: #fff;
 	border-right: 1px solid #ccc;
 }
 
@@ -48,6 +49,7 @@ footer {
 	height: 41px;
 	background-color: #eee;
     border-top: 1px solid #ccc;
+    clear: both;
 }
 
 .button-group {
@@ -73,8 +75,13 @@ footer {
 	border-bottom: 1px solid #ccc;
 }
 
+.menu-0 li:hover {
+	border-left: 4px solid #1BA3A3;
+}
+
 .menu-0 .on {
 	border-left: 4px solid #1BA3A3; 
+	background-color: #eee;
 }
 
 .menu-0 li span {
