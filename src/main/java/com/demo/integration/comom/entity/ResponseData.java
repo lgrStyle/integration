@@ -12,6 +12,9 @@ public class ResponseData implements Serializable{
     
     private Integer total;
     private List<?> rows;
+    private String message;
+    private String state;
+    private Object data;
     
     public Integer getTotal() {
         return total;
@@ -24,6 +27,24 @@ public class ResponseData implements Serializable{
     }
     public void setRows(List<?> rows) {
         this.rows = rows;
+    }
+    public String getMessage() {
+        return message;
+    }
+    public void setMessage(String message) {
+        this.message = message;
+    }
+    public String getState() {
+        return state;
+    }
+    public void setState(String state) {
+        this.state = state;
+    }
+    public Object getData() {
+        return data;
+    }
+    public void setData(Object data) {
+        this.data = data;
     }
     
     

@@ -136,13 +136,19 @@ public class WorkflowController {
     }
     
     @RequestMapping("/processForm")
-    public String processForm() {
-        return "leave-form";
+    public ModelAndView processForm(String processInstanceId, String businessId) {
+        ModelAndView mav = new ModelAndView("process-form");
+        mav.addObject("processInstanceId", processInstanceId);
+        mav.addObject("businessId", businessId);
+        return mav;
     }
     
     @RequestMapping("/processPrint")
-    public String processPrint() {
-        return "leave-print";
+    public ModelAndView processPrint(String processInstanceId, String businessId) {
+        ModelAndView mav = new ModelAndView("process-print");
+        mav.addObject("processInstanceId", processInstanceId);
+        mav.addObject("businessId", businessId);
+        return mav;
     }
     
     @RequestMapping("/processImage")

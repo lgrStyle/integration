@@ -1,10 +1,64 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head lang="zh">
 <meta charset="UTF-8">
-<title>请假申请</title>
+<title>申请表单</title>
+<link rel="stylesheet" href="/css/common.css">
+<link rel="stylesheet" href="/css/process-form.css">
+<link rel="stylesheet" href="/webjars/bootstrap/css/bootstrap.css">
+<script type="text/javascript" src="/webjars/jquery/jquery.js"></script>
+<script type="text/javascript" src="/js/process-form.js"></script>
 </head>
 <body>
-
+    <header>
+        <div class="title">
+            <span class="color-red">流水号：2041385  夜班申请-黎桂荣-7月19日</span>
+        </div>
+        <div class="level">
+            <label class="color-red">流程级别：</label>
+            <select>
+                <option>普通</option>
+                <option>中等</option>
+                <option>紧急</option>
+            </select>
+        </div>
+    </header>
+    <section>
+        <aside>
+            <div>
+                <ul class="menu menu-0">
+                    <li class="on"><span class="glyphicon glyphicon-list-alt"></span><a href="javascript:void(0);">表单信息</a></li>
+                    <li><span class="glyphicon glyphicon-tag"></span><a href="javascript:void(0);">公共附件</a></li>
+                    <li><span class="glyphicon glyphicon-tag"></span><a href="javascript:void(0);">会签意见</a></li>
+                    <li><span class="glyphicon glyphicon-tag"></span><a href="javascript:void(0);">子流程</a></li>
+                    <li><span class="glyphicon glyphicon-flag"></span><a href="javascript:void(0);">流程图</a></li>
+                </ul>
+            </div>
+            <div>
+                <ul class="menu menu-1">
+                    <li>
+                    <span class="glyphicon glyphicon-plus" title="加签"></span>
+                    <span class="glyphicon glyphicon-bookmark" title="关注"></span>
+                    <span class="glyphicon glyphicon-pawn" title="挂起"></span>
+                    </li>
+                    <li>
+                    <span class="glyphicon glyphicon-user" title="委托"></span>
+                    <span class="glyphicon glyphicon-print" title="打印"></span>
+                    <span class="glyphicon glyphicon-folder-close" title="归档"></span>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+        <div>
+            <iframe id="iframe-0" src="/workflow/processList"></iframe>
+        </div>
+    </section>
+    <footer>
+        <div class="button-group">
+            <button class="btn btn-primary" type="button" id="submit">转交</button>
+            <button class="btn btn-info" type="button" id="save">保存</button>
+            <button class="btn btn-default" type="button" id="close">关闭</button>
+        </div>
+    </footer>
 </body>
 </html>

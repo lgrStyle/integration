@@ -71,8 +71,9 @@ $(function(){
 		columns: columns,
 		onClickCell: function(index,field,value){
 			if(field == 'title'){
+				$myWaitData.datagrid('selectRow',index);
 				let data = $myWaitData.datagrid('getSelected');
-				let url = `/workflow/`;
+				let url = `/workflow/processForm?processInstanceId=${data.processInstanceId}&businessId=${data.businessId}`;
 				openFullWindow(url);
 			}else if(field == 'taskName'){
 				$myWaitData.datagrid('selectRow',index);
