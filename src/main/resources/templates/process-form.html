@@ -16,7 +16,7 @@
         </div>
         <div class="level">
             <label class="color-red">流程级别：</label>
-            <select>
+            <select name="level">
                 <option>普通</option>
                 <option>中等</option>
                 <option>紧急</option>
@@ -32,11 +32,11 @@
         <aside>
             <div>
                 <ul class="menu menu-0">
-                    <li class="on"><span class="glyphicon glyphicon-list-alt"></span><a href="javascript:void(0);">表单信息</a></li>
-                    <li><span class="glyphicon glyphicon-tag"></span><a href="javascript:void(0);">公共附件</a></li>
-                    <li><span class="glyphicon glyphicon-comment"></span><a href="javascript:void(0);">会签意见</a></li>
-                    <li><span class="glyphicon glyphicon-tasks"></span><a href="javascript:void(0);">子流程</a></li>
-                    <li><span class="glyphicon glyphicon-flag"></span><a href="javascript:void(0);">流程图</a></li>
+                    <li id="form-info" class="on"><span class="glyphicon glyphicon-list-alt"></span><a href="javascript:void(0);">表单信息</a></li>
+                    <li id="attachment"><span class="glyphicon glyphicon-tag"></span><a href="javascript:void(0);">公共附件</a></li>
+                    <li id="comment"><span class="glyphicon glyphicon-comment"></span><a href="javascript:void(0);">会签意见</a></li>
+                    <li id="subprocess"><span class="glyphicon glyphicon-tasks"></span><a href="javascript:void(0);">子流程</a></li>
+                    <li id="process-image"><span class="glyphicon glyphicon-flag"></span><a href="javascript:void(0);">流程图</a></li>
                 </ul>
             </div>
             <div>
@@ -55,7 +55,7 @@
             </div>
         </aside>
         <div>
-            <iframe id="iframe-0" src="/workflow/processList"></iframe>
+            <iframe id="iframe-0" src="/workflow/forms/leaveForm"></iframe>
         </div>
     </section>
     <footer>

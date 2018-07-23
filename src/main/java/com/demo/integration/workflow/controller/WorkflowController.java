@@ -135,6 +135,11 @@ public class WorkflowController {
         return "process-job";
     }
     
+    @RequestMapping("/forms/leaveForm")
+    public String leaveForm() {
+        return "/forms/leave-form";
+    }
+    
     @RequestMapping("/processForm")
     public ModelAndView processForm(String processInstanceId, String taskId, String processKey) {
         ModelAndView mav = new ModelAndView("process-form");
@@ -151,6 +156,7 @@ public class WorkflowController {
         mav.addObject("processKey", processKey);
         return mav;
     }
+    
     
     @RequestMapping("/processImage")
     public ModelAndView processImage(String processDefinitionId, String processDefinitionKey, String taskId) {

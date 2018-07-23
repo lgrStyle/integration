@@ -1,4 +1,8 @@
 $(function(){
+	let processInstanceId = $('#processInstanceId').text();
+	let taskId = $('#taskId').text();
+	let processKey = $('#processKey').text();
+	
 	$('.menu-0 li').on('click',function(){
 		$(this).siblings().removeClass('on');
 		$(this).attr('class','on');
@@ -8,10 +12,8 @@ $(function(){
 		window.close();
 	})
 	
+	
 	$('#submit').on('click',function(){
-		let processInstanceId = $('#processInstanceId').text();
-		let taskId = $('#taskId').text();
-		let processKey = $('#processKey').text();
 		$.ajax({
 			url : '/workflow/completeTask',
 			data : {processInstanceId,taskId,processKey},
@@ -25,5 +27,11 @@ $(function(){
 				}
 			}
 		});
+	})
+	
+	$('#process-image').on('click',function(){
+		let url = `/workflow/processImage?taskId=${taskId}`;
+		let t = $('#iframe-0').attr('src',url);
+		
 	})
 });
