@@ -88,10 +88,10 @@
 	            AND W.STATUS = #{workflowInfo.status}
 	        </if>
 	        <if test="workflowInfo.createTime != null and workflowInfo.completedTime == null ">
-	            AND W.CREATE_TIME <![CDATA[<=]]>  #{workflowInfo.createTime} 
+	            AND W.CREATE_TIME >= #{workflowInfo.createTime} 
 	        </if>
 	        <if test="workflowInfo.createTime == null and workflowInfo.completedTime != null ">
-	            AND W.CREATE_TIME >= #{workflowInfo.completedTime} 
+	            AND W.CREATE_TIME <![CDATA[<=]]> #{workflowInfo.completedTime} 
 	        </if>
 	        <if test="workflowInfo.createTime != null and workflowInfo.completedTime != null ">
 	            AND W.CREATE_TIME BETWEEN #{workflowInfo.createTime} AND #{workflowInfo.completedTime}
