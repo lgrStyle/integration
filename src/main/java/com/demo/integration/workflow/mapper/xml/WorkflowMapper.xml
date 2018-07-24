@@ -52,14 +52,14 @@
             , W.BUSINESS_ID 
             , W.TITLE
             , W.CREATE_BY 
-            , W.COMPLETED_TIME
+            , T.END_TIME_ AS COMPLETED_TIME
             , W.STATUS
             , W.PROCESS_KEY
             , W.PROCESS_NAME
             , T.NAME_  AS TASK_NAME
         FROM WORKFLOW_INFO W,ACT_HI_TASKINST T
         WHERE W.PROC_INST_ID = T.PROC_INST_ID_
-        AND W.STATUS = '已结束'
+        AND T.END_TIME_ IS NOT NULL
         AND (T.OWNER_ = #{username} OR T.ASSIGNEE_ = #{username})
     </select>
     
@@ -84,7 +84,7 @@
 	        <if test="workflowInfo.processKey != null and workflowInfo.processKey != '' ">
 	            AND W.PROCESS_KEY = #{workflowInfo.processKey}
 	        </if>
-	        <if test="workflowInfo.status != null and workflowInfo.status != '' ">
+	        <if test="workflowInfo.status != null and workflowInfo.status != '' and workflowInfo.status != '所有状态' ">
 	            AND W.STATUS = #{workflowInfo.status}
 	        </if>
 	        <if test="workflowInfo.createTime != null and workflowInfo.completedTime == null ">
