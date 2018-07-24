@@ -7,6 +7,7 @@ import java.io.OutputStream;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.zip.ZipInputStream;
@@ -18,6 +19,7 @@ import org.activiti.engine.IdentityService;
 import org.activiti.engine.RepositoryService;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.task.Attachment;
+import org.activiti.engine.task.Task;
 import org.apache.commons.compress.utils.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
@@ -138,6 +140,11 @@ public class WorkflowController {
     @RequestMapping("/forms/leaveForm")
     public String leaveForm() {
         return "/forms/leave-form";
+    }
+    
+    @RequestMapping("/forms/testForm")
+    public String testForm() {
+        return "/forms/test-form";
     }
     
     @RequestMapping("/processForm")
@@ -345,12 +352,46 @@ public class WorkflowController {
         return "success";
     }
     
-    @RequestMapping("/completeTask")
+    @RequestMapping("/testTask")
     @ResponseBody
-    public ResponseData completeTask(String processInstanceId, String taskId, String processKey) {
+    public ResponseData testTask(@RequestParam Map<String,String> map) {
+        String processInstanceId = map.get("processInstanceId");
+        String taskId = map.get("taskId");
         ResponseData responseData = new ResponseData();
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
+        Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+        Map<String,Object> variables = new HashMap<String,Object>();
+        if("并行任务2".equals(task.getName())) {
+            variables.put("condition", "继续");
+        }
+        variables.put("assignee", user.getUsername());
         try {
-            workflowService.completeTask(processInstanceId, taskId);
+            workflowService.completeTask(processInstanceId, taskId ,variables);
+        } catch (Exception e) {
+            responseData.setMessage(e.getMessage());
+            responseData.setState("error");
+            logger.error(e.getMessage());
+        }
+        return responseData;
+    }
+    
+    @RequestMapping("/leaveTask")
+    @ResponseBody
+    public ResponseData leaveTask(@RequestParam Map<String,String> map) {
+        String processInstanceId = map.get("processInstanceId");
+        String taskId = map.get("taskId");
+        ResponseData responseData = new ResponseData();
+        User user = (User) SecurityUtils.getSubject().getPrincipal();
+        Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+        Map<String,Object> variables = new HashMap<String,Object>();
+        if("部门领导审批".equals(task.getName())) {
+            variables.put("deptLeaderApprove", "true");
+            variables.put("assignee", user.getUsername());
+        }else if("人事审批".equals(task.getName())) {
+            variables.put("hrApprove", "true");
+        }
+        try {
+            workflowService.completeTask(processInstanceId, taskId,variables);
         } catch (Exception e) {
             responseData.setMessage(e.getMessage());
             responseData.setState("error");

@@ -32,5 +32,5 @@ public interface WorkflowService {
 
     void changeState(String state, String processDefinitionId, boolean cascade, Date date);
 
-    void completeTask(String processInstanceId, String taskId) throws SQLException;
+    void completeTask(String processInstanceId, String taskId, Map<String,Object> variables) throws SQLException;
 }

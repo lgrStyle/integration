@@ -14,11 +14,46 @@ $(function(){
 	
 	
 	$('#submit').on('click',function(){
+		switch(processKey){
+			case 'leaveProcess': {
+				let param = {
+						processInstanceId,
+						taskId,
+						processKey,
+				}
+				task('/workflow/leaveTask',param);
+				break;
+			}
+			case 'testProcess': {
+				let param = {
+						processInstanceId,
+						taskId,
+						processKey,
+				}
+				task('/workflow/testTask',param);
+				break;
+			}
+		}
+	})
+	
+	$('#process-image').on('click',function(){
+		$('.iframe-0').addClass('display-none');
+		$('.iframe-1').removeClass('display-none');
+		
+	})
+	
+	$('#information').on('click',function(){
+		$('.iframe-1').addClass('display-none');
+		$('.iframe-0').removeClass('display-none');
+	})
+	
+	function task(url,param){
 		$.ajax({
-			url : '/workflow/completeTask',
-			data : {processInstanceId,taskId,processKey},
+			url : url,
+			data : param,
 			dataType: 'json',
 			async: true,
+			type: 'post',
 			success : function(response,state,xhr){
 				if(response.state == 'error'){
 					alert(response.message);
@@ -27,11 +62,6 @@ $(function(){
 				}
 			}
 		});
-	})
+	}
 	
-	$('#process-image').on('click',function(){
-		let url = `/workflow/processImage?taskId=${taskId}`;
-		let t = $('#iframe-0').attr('src',url);
-		
-	})
 });

@@ -254,7 +254,7 @@ public class WorkflowServiceImpl implements WorkflowService{
                 break;
             }
         }
-        workflowInfo.setProcessInstanceId(pi.getId());
+        workflowInfo.setProcessInstanceId(pi.getProcessInstanceId());
         workflowInfo.setBusinessId(businessId);
         workflowInfo.setStatus("执行中");
         workflowInfo.setCreateBy(user.getUsername());
@@ -262,10 +262,7 @@ public class WorkflowServiceImpl implements WorkflowService{
     }
     
     @Override
-    public void completeTask(String processInstanceId, String taskId) throws SQLException {
-        User user = (User) SecurityUtils.getSubject().getPrincipal();
-        Map<String,Object> variables = new HashMap<String,Object>();
-        variables.put("assignee", user.getUsername());
+    public void completeTask(String processInstanceId, String taskId ,Map<String,Object> variables) throws SQLException {
         taskService.complete(taskId, variables);
         HistoricProcessInstance hpi =
         historyService.createHistoricProcessInstanceQuery()
@@ -274,6 +271,7 @@ public class WorkflowServiceImpl implements WorkflowService{
             .singleResult();
         if(hpi != null) {
             WorkflowInfo workflowInfo = new WorkflowInfo();
+            workflowInfo.setProcessInstanceId(processInstanceId);
             workflowInfo.setStatus("已结束");
             workflowInfo.setCompletedTime(hpi.getEndTime());
             workflowMapper.updateWorkflow(workflowInfo);

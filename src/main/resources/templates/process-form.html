@@ -32,7 +32,7 @@
         <aside>
             <div>
                 <ul class="menu menu-0">
-                    <li id="form-info" class="on"><span class="glyphicon glyphicon-list-alt"></span><a href="javascript:void(0);">表单信息</a></li>
+                    <li id="information" class="on"><span class="glyphicon glyphicon-list-alt"></span><a href="javascript:void(0);">表单信息</a></li>
                     <li id="attachment"><span class="glyphicon glyphicon-tag"></span><a href="javascript:void(0);">公共附件</a></li>
                     <li id="comment"><span class="glyphicon glyphicon-comment"></span><a href="javascript:void(0);">会签意见</a></li>
                     <li id="subprocess"><span class="glyphicon glyphicon-tasks"></span><a href="javascript:void(0);">子流程</a></li>
@@ -55,7 +55,9 @@
             </div>
         </aside>
         <div>
-            <iframe id="iframe-0" src="/workflow/forms/leaveForm"></iframe>
+            <iframe class="iframe-0" src="/workflow/forms/leaveForm" th:if="${processKey} == 'leaveProcess'"></iframe>
+            <iframe class="iframe-0" src="/workflow/forms/testForm" th:if="${processKey} == 'testProcess'"></iframe>
+            <iframe class="iframe-1 display-none" th:src="@{/workflow/processImage(taskId=${taskId})}"></iframe>
         </div>
     </section>
     <footer>
