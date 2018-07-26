@@ -400,6 +400,29 @@ public class WorkflowController {
         return responseData;
     }
     
+    @RequestMapping("/jpaTask")
+    @ResponseBody
+    public ResponseData jpaTask(@RequestParam Map<String,String> map) {
+        String processInstanceId = map.get("processInstanceId");
+        String taskId = map.get("taskId");
+        Task task = taskService.createTaskQuery().taskId(taskId).singleResult();
+        Map<String,Object> variables = new HashMap<String,Object>();
+        ResponseData responseData = new ResponseData();
+        if("用户任务1".equals(task.getName())) {
+            variables.put("approve", "同意");
+        }else if("用户任务2".equals(task.getName())) {
+            variables.put("comment", "123");
+        }
+        try {
+            workflowService.completeTask(processInstanceId, taskId,variables);
+        } catch (Exception e) {
+            responseData.setMessage(e.getMessage());
+            responseData.setState("error");
+            logger.error(e.getMessage());
+        }
+        return responseData;
+    }
+    
     @RequestMapping("/myWaitList")
     @ResponseBody
     public ResponseData myWaitList(WorkflowInfo workflowInfo) throws SQLException {

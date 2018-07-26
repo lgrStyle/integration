@@ -33,6 +33,15 @@ $(function(){
 				task('/workflow/testTask',param);
 				break;
 			}
+			case 'jpaProcess': {
+				let param = {
+						processInstanceId,
+						taskId,
+						processKey,
+				}
+				task('/workflow/jpaTask',param);
+				break;
+			}
 		}
 	})
 	

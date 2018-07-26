@@ -12,6 +12,7 @@ import java.util.Map;
 import org.activiti.bpmn.model.BpmnModel;
 import org.activiti.bpmn.model.FlowNode;
 import org.activiti.bpmn.model.SequenceFlow;
+import org.activiti.engine.FormService;
 import org.activiti.engine.HistoryService;
 import org.activiti.engine.ManagementService;
 import org.activiti.engine.ProcessEngine;
@@ -61,6 +62,10 @@ public class WorkflowServiceImpl implements WorkflowService{
     @SuppressWarnings("unused")
     @Autowired
     private ManagementService managementService;
+    
+    @SuppressWarnings("unused")
+    @Autowired
+    private FormService formService;
     
     @Autowired
     private WorkflowMapper workflowMapper;

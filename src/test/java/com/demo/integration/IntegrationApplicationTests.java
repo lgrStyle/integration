@@ -28,6 +28,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.demo.integration.entity.Student;
+import com.demo.integration.service.DemoService;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class IntegrationApplicationTests {
@@ -47,7 +50,10 @@ public class IntegrationApplicationTests {
     @Autowired
     private HistoryService historyService;
     
-    @Test
+    @Autowired
+    private DemoService demoService;
+    
+    
     @Transactional
     public void allApproved() {
         String currentUser = "ming";
@@ -106,5 +112,20 @@ public class IntegrationApplicationTests {
             }
         }
         return variables;
+    }
+    
+//    @Test
+    public void jpaDemo() {
+        Student s = new Student();
+        s.setName("lgr");
+        demoService.save(s);
+        System.out.println("已完成");
+    }
+    
+    @Test
+    public void demo2() {
+        Student s = demoService.findById(3);
+        System.out.println(s.getName());
+        s.setName("333");
     }
 }
