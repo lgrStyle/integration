@@ -18,8 +18,8 @@ public class IntegrationApplication extends SpringBootServletInitializer{
     private static Logger logger = LoggerFactory.getLogger(IntegrationApplication.class);
     
 	public static void main(String[] args) {
+	    logger.info("jar方式启动！");
 		SpringApplication.run(IntegrationApplication.class, args);
-		logger.info("jar方式启动！");
 	}
 
     @Override
