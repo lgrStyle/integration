@@ -3,6 +3,8 @@ package com.demo.integration.workflow.entity;
 import java.io.Serializable;
 import java.sql.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -11,7 +13,10 @@ public class Overtime implements Serializable{
     private static final long serialVersionUID = 1L;
     
     private Integer id;
+    
+    @DateTimeFormat(iso=ISO.DATE)
     private Date startTime;
+    
     private Date endTime;
     private String reason;
     private String createBy;
