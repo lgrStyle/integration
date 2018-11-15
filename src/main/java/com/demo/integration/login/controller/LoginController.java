@@ -71,7 +71,7 @@ public class LoginController {
     @RequestMapping("/userInfo")
     @RequiresPermissions("userInfo:view")//权限管理;
     public String userInfo(){
-        return "userInfo";
+        return "/user/userInfo";
     }
 
     /**
@@ -79,13 +79,13 @@ public class LoginController {
      * @return
      */
     @RequestMapping("/userAdd")
-    @RequiresPermissions("userInfo:add")//权限管理;
+//    @RequiresPermissions("userInfo:add")//权限管理;
     public String userInfoAdd(User user){
         if(user.getUsername() != null) {
             loginService.addUser(user);
-            return "userInfo";
+            return "/user/userInfo";
         }
-        return "userAdd";
+        return "/user/userAdd";
     }
 
     /**
@@ -95,7 +95,7 @@ public class LoginController {
     @RequestMapping("/userDel")
     @RequiresPermissions("userInfo:del")//权限管理;
     public String userDel(){
-        return "userDel";
+        return "/user/userDel";
     }
     
     @RequestMapping("save")
